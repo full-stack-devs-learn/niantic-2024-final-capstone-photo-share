@@ -1,5 +1,3 @@
-USE sys;
-
 # ---------------------------------------------------------------------- #
 # Target DBMS:           MySQL                                           #
 # Project name:          PhotoShare                                      #
@@ -43,3 +41,26 @@ VALUES  ('user','$2a$10$NkufUPF3V8dEPSZeo1fzHe9ScBu.LOay9S3N32M84yuUM2OJYEJ/.','
 ('samwise','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_HOBBIT'),
 ('gollum','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_USER');
 
+CREATE TABLE albums (
+    album_id INT NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    title VARCHAR(25) NOT NULL,
+    description VARCHAR(100) NULL,
+    created_at DATETIME NOT NULL,
+    PRIMARY KEY (album_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+CREATE TABLE posts (
+    post_id INT NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    img_url VARCHAR(255) NOT NULL,
+    title VARCHAR(25) NOT NULL,
+    caption VARCHAR(100),
+    reactions INT DEFAULT 0,
+    album_id INT NULL,
+    created_at DATETIME NOT NULL,
+    PRIMARY KEY (post_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (album_id) REFERENCES Albums(album_id)
+);
