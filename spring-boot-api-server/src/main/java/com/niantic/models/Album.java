@@ -1,5 +1,7 @@
 package com.niantic.models;
 
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.ArrayList;
 import java.util.Date;
 
