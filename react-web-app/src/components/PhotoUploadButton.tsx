@@ -39,11 +39,12 @@ export default function PhotoUploadButton({onPhotoUploaded}: {onPhotoUploaded: F
         <form onSubmit={submitHandler}>
             <input
             type="file"
+            accept="image/png, image/jpeg"
             onChange={(e) => {
                 setFile(e.target.files![0]);
             }}
             ></input>
-            <button type="submit">Submit</button>
+            <button type="submit">Upload</button>
             <p>{message}</p>
         </form>
         </>
