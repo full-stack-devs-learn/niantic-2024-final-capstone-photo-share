@@ -51,9 +51,7 @@ public class MySqlPostDao implements PostDao {
 
             posts.add(post);
         }
-
         return posts;
-
     };
 
     public List<Post> getPostsByUserId(int userId)
@@ -83,7 +81,6 @@ public class MySqlPostDao implements PostDao {
 
             posts.add(post);
         }
-
         return posts;
     }
 
@@ -114,7 +111,6 @@ public class MySqlPostDao implements PostDao {
 
             posts.add(post);
         }
-
         return posts;
     }
 
@@ -142,9 +138,7 @@ public class MySqlPostDao implements PostDao {
             LocalDateTime createdAt = row.getTimestamp("created_at").toLocalDateTime();
 
             post = new Post(postId, userId, imgUrl, title, captions, reactions, albumId, createdAt);
-
         }
-
         return post;
     }
 

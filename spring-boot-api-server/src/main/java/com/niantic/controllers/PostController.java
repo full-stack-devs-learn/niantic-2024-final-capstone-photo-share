@@ -34,7 +34,6 @@ public class PostController {
         }
         catch (Exception e)
         {
-            //Server Error
             return ResponseEntity.internalServerError().body("An  internal server error");
         }
     }
@@ -75,6 +74,24 @@ public class PostController {
         catch (Exception e)
         {
             //Server Error
+            return ResponseEntity.internalServerError().body("An  internal server error");
+        }
+    }
+
+    @GetMapping(params = "albumId")
+    public ResponseEntity<?> getPostByAlbumId(@RequestParam int albumId)
+    {
+        try
+        {
+            var result = mySqlPostDao.getPostsByAlbumId(albumId);
+            if(result.isEmpty())
+            {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(result);
+        }
+        catch (Exception e)
+        {
             return ResponseEntity.internalServerError().body("An  internal server error");
         }
     }
