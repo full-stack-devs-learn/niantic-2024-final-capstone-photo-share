@@ -18,10 +18,10 @@ public class Post
     @NotBlank(message="Add captions")
     private String captions;
     private int reactions;
-    private int albumId;
+    private Integer albumId;
     private LocalDateTime createdAt;
 
-    public Post(int postId, int userId, String imgUrl, String title, String captions, int reactions, int albumId, LocalDateTime createdAt) {
+    public Post(int postId, int userId, String imgUrl, String title, String captions, int reactions, Integer albumId, LocalDateTime createdAt) {
         this.postId = postId;
         this.userId = userId;
         this.imgUrl = imgUrl;
@@ -82,7 +82,7 @@ public class Post
         this.reactions = reactions;
     }
 
-    public int getAlbumId() {
+    public Integer getAlbumId() {
         return albumId;
     }
 

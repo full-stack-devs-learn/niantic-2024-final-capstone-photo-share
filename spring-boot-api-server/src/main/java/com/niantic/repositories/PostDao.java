@@ -9,13 +9,13 @@ public interface PostDao {
 
     List<Post> getPostsByUserId(int userId);
 
-    List<Post> getPostsByAlbumId(int albumId);
+    List<Post> getPostsByAlbumId(Integer albumId);
 
     Post getPostById(int postId);
 
     Post addPost(Post post);
 
-    void updatePost(int postId, Post post);
+    boolean updatePost(int postId, Post post);
 
-    void deletePost(int postId);
+    boolean deletePost(int postId);
 }

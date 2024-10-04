@@ -41,6 +41,15 @@ VALUES  ('user','$2a$10$NkufUPF3V8dEPSZeo1fzHe9ScBu.LOay9S3N32M84yuUM2OJYEJ/.','
 ('samwise','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_HOBBIT'),
 ('gollum','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_USER');
 
+CREATE TABLE profiles 
+(
+	profile_id INT PRIMARY KEY AUTO_INCREMENT,
+	user_id INT NOT NULL,
+    profile_img VARCHAR(255),
+    bio TEXT,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
 CREATE TABLE albums (
     album_id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -56,23 +65,32 @@ CREATE TABLE posts (
     user_id INT NOT NULL,
     img_url VARCHAR(255) NOT NULL,
     title VARCHAR(25) NOT NULL,
-    caption VARCHAR(100),
+    captions VARCHAR(100),
     reactions INT DEFAULT 0,
-    album_id INT NULL,
-    created_at TIMESTAMP NOT NULL,
+    album_id INT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (post_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (album_id) REFERENCES Albums(album_id)
 );
 
+INSERT INTO profiles(user_id, profile_img, bio)
+VALUES
+(1, "profile_img1.jpg", "Hello, I'm user 1!"),
+(2, "profile_img2.jpg", "This is user 2's bio."),
+(3, "profile_img3.jpg", "User 3 here, nice to meet you!"),
+(4, "profile_img4.jpg", "Welcome to user 4's profile!"),
+(5, "profile_img5.jpg", "Hey, I'm user 5!"),
+(6, "profile_img6.jpg", "This is the profile of user 6.");
+
 INSERT INTO albums (user_id, title, description, created_at)
 VALUES
 (1, 'My First Album', 'This is the description of the first album', NOW());
 
-INSERT INTO posts (user_id, img_url, title, caption, created_at, album_id)
+INSERT INTO posts (user_id, img_url, title, captions, created_at, album_id)
 VALUES
 (1, 'testImg1.jpg', 'Post Title 1', 'This is the caption for post 1', NOW(), 1),
 (2, 'testImg2.jpg', 'Post Title 2', 'This is the caption for post 2', NOW(), NULL),
-(3, 'testImg3.jpg', 'Post Title 3', 'This is the caption for post 3', NOW(), NUll),
+(3, 'testImg3.jpg', 'Post Title 3', 'This is the caption for post 3', NOW(), NULL),
 (1, 'testImg4.jpg', 'Post Title 4', 'This is the caption for post 4', NOW(), NULL),
 (2, 'testImg5.jpg', 'Post Title 5', 'This is the caption for post 5', NOW(), NULL);
