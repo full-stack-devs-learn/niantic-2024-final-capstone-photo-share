@@ -16,7 +16,7 @@ public class Album
 
     public Album(){}
 
-    public Album(int albumId, int userId, String title, String description, Date createdAt, ArrayList<Post> posts) {
+    public Album(int albumId, int userId, String title, String description, Date createdAt) {
         this.albumId = albumId;
         this.userId = userId;
         this.title = title;

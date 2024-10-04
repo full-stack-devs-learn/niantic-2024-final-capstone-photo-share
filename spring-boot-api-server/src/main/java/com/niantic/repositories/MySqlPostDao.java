@@ -158,7 +158,6 @@ public class MySqlPostDao implements PostDao {
                     captions = ?,
                     reactions = ?,
                     album_id = ?,
-                    created_at = ?
                 WHERE
                     post_id = ?;
                 """;
@@ -170,7 +169,6 @@ public class MySqlPostDao implements PostDao {
                 , post.getCaptions()
                 , post.getReactions()
                 , post.getAlbumId()
-                , post.getCreatedAt()
                 , postId);
     }
 
