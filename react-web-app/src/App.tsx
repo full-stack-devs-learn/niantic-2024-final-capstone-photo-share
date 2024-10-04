@@ -1,5 +1,6 @@
 
 import './App.css'
+import axios from 'axios';
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './components/home/Home'
@@ -17,6 +18,8 @@ import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { auto } from '@cloudinary/url-gen/actions/resize';
 
 export default function App() {
+
+  const [file, setFile] = useState<File>();
 
   // SECTION 1
   // This demonstrates how images can be pulled from the Cloudinary cloud storage.
@@ -65,6 +68,23 @@ export default function App() {
   
     const myImage = cld2.image(publicId);
 
+    const url = `https://api.cloudinary.com/v1_1/${
+      import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/upload`;
+
+    async function submitHandler(event: any)
+    {
+      event.preventDefault();
+
+      if(file)
+      {
+        const formData = new FormData();
+        formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+        formData.append("file", file);
+  
+        const response = await axios.post(url, formData);
+      }
+    }
+
   return (
     <Router>
       <Header />
@@ -107,6 +127,11 @@ export default function App() {
         />
       </div>
     </div>
+
+    <form onSubmit={submitHandler}>
+      <input type="file" onChange={(e) => {setFile(e.target.files![0])}}></input>
+      <button type="submit">Submit</button>
+    </form>
 
       <footer>
         &copy; Sakila Movies 2024
