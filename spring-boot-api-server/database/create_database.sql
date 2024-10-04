@@ -59,8 +59,20 @@ CREATE TABLE posts (
     caption VARCHAR(100),
     reactions INT DEFAULT 0,
     album_id INT NULL,
-    created_at DATETIME NOT NULL,
+    created_at TIMESTAMP NOT NULL,
     PRIMARY KEY (post_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (album_id) REFERENCES Albums(album_id)
 );
+
+INSERT INTO albums (user_id, title, description, created_at)
+VALUES
+(1, 'My First Album', 'This is the description of the first album', NOW());
+
+INSERT INTO posts (user_id, img_url, title, caption, created_at, album_id)
+VALUES
+(1, 'testImg1.jpg', 'Post Title 1', 'This is the caption for post 1', NOW(), 1),
+(2, 'testImg2.jpg', 'Post Title 2', 'This is the caption for post 2', NOW(), NULL),
+(3, 'testImg3.jpg', 'Post Title 3', 'This is the caption for post 3', NOW(), NUll),
+(1, 'testImg4.jpg', 'Post Title 4', 'This is the caption for post 4', NOW(), NULL),
+(2, 'testImg5.jpg', 'Post Title 5', 'This is the caption for post 5', NOW(), NULL);

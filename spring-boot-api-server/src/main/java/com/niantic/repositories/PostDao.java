@@ -5,6 +5,8 @@ import java.util.List;
 
 public interface PostDao {
 
+    List<Post> getAllPosts();
+
     List<Post> getPostsByUserId(int userId);
 
     List<Post> getPostsByAlbumId(int albumId);

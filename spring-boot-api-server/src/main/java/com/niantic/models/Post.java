@@ -2,6 +2,8 @@ package com.niantic.models;
 
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Post
@@ -17,9 +19,9 @@ public class Post
     private String captions;
     private int reactions;
     private int albumId;
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
-    public Post(int postId, int userId, String imgUrl, String title, String captions, int reactions, int albumId, Date createdAt) {
+    public Post(int postId, int userId, String imgUrl, String title, String captions, int reactions, int albumId, LocalDateTime createdAt) {
         this.postId = postId;
         this.userId = userId;
         this.imgUrl = imgUrl;
@@ -88,11 +90,11 @@ public class Post
         this.albumId = albumId;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }
