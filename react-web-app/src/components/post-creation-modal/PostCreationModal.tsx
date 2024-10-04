@@ -44,8 +44,10 @@ export default function PostCreationModal() {
         </Modal.Header>
 
         <Modal.Body>
-        <PhotoUploadButton onPhotoUploaded={showUploadedPhoto}></PhotoUploadButton>
-        {uploadedImg && <AdvancedImage cldImg={uploadedImg} />}
+            <PhotoUploadButton onPhotoUploaded={showUploadedPhoto}></PhotoUploadButton>
+            {uploadedImg && <AdvancedImage cldImg={uploadedImg} />}
+            <label htmlFor="caption">Caption</label>
+            <textarea maxLength={100} name="caption" id="caption" placeholder="Type a caption (optional)"></textarea>
         </Modal.Body>
 
         <Modal.Footer>

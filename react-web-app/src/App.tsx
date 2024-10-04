@@ -18,8 +18,8 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             </Routes>
+            <PostCreationModal></PostCreationModal>
         </main>
-        <PostCreationModal></PostCreationModal>
         </Router>
     );
 }
