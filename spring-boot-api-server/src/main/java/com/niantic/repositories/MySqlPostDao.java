@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -25,6 +25,37 @@ public class MySqlPostDao implements PostDao {
     {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
+
+    public List<Post> getAllPosts()
+    {
+        List<Post> posts = new ArrayList<>();
+
+        String sql = """
+                    SELECT *
+                    FROM posts
+                    """;
+
+        SqlRowSet row = jdbcTemplate.queryForRowSet(sql);
+
+        while(row.next())
+        {
+            int postId = row.getInt("post_id");
+            int userId = row.getInt("user_id");
+            String imgUrl = row.getString("img_url");
+            String title = row.getString("title");
+            String captions = row.getString("caption");
+            int reactions = row.getInt("reactions");
+            int albumId = row.getInt("album_id");
+            LocalDateTime createdAt = row.getTimestamp("created_at").toLocalDateTime();
+
+            Post post = new Post(postId, userId, imgUrl, title, captions, reactions, albumId, createdAt);
+
+            posts.add(post);
+        }
+
+        return posts;
+
+    };
 
     public List<Post> getPostsByUserId(int userId)
     {
@@ -47,7 +78,7 @@ public class MySqlPostDao implements PostDao {
             String captions = row.getString("caption");
             int reactions = row.getInt("reactions");
             int albumId = row.getInt("album_id");
-            Date createdAt = row.getDate("created_at");
+            LocalDateTime createdAt = row.getTimestamp("created_at").toLocalDateTime();
 
             Post post = new Post(postId, userId, imgUrl, title, captions, reactions, albumId, createdAt);
 
@@ -78,7 +109,7 @@ public class MySqlPostDao implements PostDao {
             String captions = row.getString("caption");
             int reactions = row.getInt("reactions");
             albumId = row.getInt("album_id");
-            Date createdAt = row.getDate("created_at");
+            LocalDateTime createdAt = row.getTimestamp("created_at").toLocalDateTime();
 
             Post post = new Post(postId, userId, imgUrl, title, captions, reactions, albumId, createdAt);
 
@@ -109,7 +140,7 @@ public class MySqlPostDao implements PostDao {
             String captions = row.getString("caption");
             int reactions = row.getInt("reactions");
             int albumId = row.getInt("album_id");
-            Date createdAt = row.getDate("created_at");
+            LocalDateTime createdAt = row.getTimestamp("created_at").toLocalDateTime();
 
             post = new Post(postId, userId, imgUrl, title, captions, reactions, albumId, createdAt);
 
@@ -137,7 +168,7 @@ public class MySqlPostDao implements PostDao {
             statement.setString(4, post.getCaptions());
             statement.setInt(5, post.getReactions());
             statement.setInt(6, post.getAlbumId());
-            statement.setDate(7, (java.sql.Date)post.getCreatedAt());
+//            statement.setDate(7, (java.sql.Date) post.getCreatedAt());
 
             return statement;
         }, keyHolder);
