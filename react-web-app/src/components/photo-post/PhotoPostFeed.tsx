@@ -1,10 +1,11 @@
 import photoPostService from "../../services/photo-post-service";
 import { useState, useEffect } from 'react';
-import PhotoPost from "./PhotoPost";
+import PhotoPostCard from "./PhotoPostCard";
+import { PhotoPost } from "../../models/photo-post";
 
 export default function PhotoPostFeed()
 {
-    const [posts, setPosts] = useState<any[]>([]);
+    const [posts, setPosts] = useState<PhotoPost[]>([]);
 
     useEffect(() => {
         photoPostService.getAllPosts().then(data => {
@@ -16,11 +17,12 @@ export default function PhotoPostFeed()
         <>
         {
             posts.map((post) => (
-                <PhotoPost imgUrl={post.imgUrl}
+                <PhotoPostCard userId={post.userId}
+                imgUrl={post.imgUrl}
                 title={post.title}
                 captions={post.captions}
                 reactions={post.reactions}
-                ></PhotoPost>
+                ></PhotoPostCard>
             ))
         }
         </>
