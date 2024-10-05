@@ -1,8 +1,10 @@
 package com.niantic.repositories;
 
 import com.niantic.models.Album;
+import com.niantic.models.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -168,4 +172,5 @@ public class MySqlAlbumDao implements AlbumDao {
         jdbcTemplate.update(sql, albumId);
         return true;
     }
+
 }
