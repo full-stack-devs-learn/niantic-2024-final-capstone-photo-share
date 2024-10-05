@@ -55,7 +55,7 @@ CREATE TABLE albums (
     user_id INT NOT NULL,
     title VARCHAR(25) NOT NULL,
     description VARCHAR(100) NULL,
-    created_at DATETIME NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (album_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );

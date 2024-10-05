@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +43,7 @@ public class MySqlAlbumDao implements AlbumDao {
             int userId = row.getInt("user_id");
             String title = row.getString("title");
             String description = row.getString("description");
-            Date createdAt = row.getDate("created_at");
+            LocalDateTime createdAt = row.getTimestamp("created_at").toLocalDateTime();
 
             Album album = new Album(albumId, userId, title, description, createdAt);
 
@@ -70,7 +71,7 @@ public class MySqlAlbumDao implements AlbumDao {
             userId = row.getInt("user_id");
             String title = row.getString("title");
             String description = row.getString("description");
-            Date createdAt = row.getDate("created_at");
+            LocalDateTime createdAt = row.getTimestamp("created_at").toLocalDateTime();
 
             Album album = new Album(albumId, userId, title, description, createdAt);
 
@@ -96,7 +97,7 @@ public class MySqlAlbumDao implements AlbumDao {
             int userId = row.getInt("user_id");
             String title = row.getString("title");
             String description = row.getString("description");
-            Date createdAt = row.getDate("created_at");
+            LocalDateTime createdAt = row.getTimestamp("created_at").toLocalDateTime();
 
             Album album = new Album(albumId, userId, title, description, createdAt);
 
@@ -108,8 +109,8 @@ public class MySqlAlbumDao implements AlbumDao {
     public Album addAlbum(Album album)
     {
         String sql = """
-               INSERT INTO albums (user_id, title, description, createdAt)
-               VALUES (?, ?, ?, ?)
+               INSERT INTO albums (user_id, title, description)
+               VALUES (?, ?, ?)
                """;
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -119,7 +120,6 @@ public class MySqlAlbumDao implements AlbumDao {
             statement.setInt(1, album.getUserId());
             statement.setString(2, album.getTitle());
             statement.setString(3, album.getDescription());
-            statement.setDate(4, (java.sql.Date)album.getCreatedAt());
 
             return statement;
         }, keyHolder);
@@ -129,8 +129,13 @@ public class MySqlAlbumDao implements AlbumDao {
         return getAlbum(newId);
     }
 
-    public void updateAlbum(int albumId, Album album)
+    public boolean updateAlbum(int albumId, Album album)
     {
+        var albumToUpdate = getAlbum(albumId);
+        if(albumToUpdate == null)
+        {
+            return false;
+        }
         String sql = """
                 UPDATE albums
                 SET
@@ -145,15 +150,22 @@ public class MySqlAlbumDao implements AlbumDao {
                 , album.getDescription()
                 , albumId
                 );
-
+        return true;
     }
 
-    public void deleteAlbum(int albumId) {
+    public boolean deleteAlbum(int albumId) {
+
+        var albumToDelete = getAlbum(albumId);
+        if(albumToDelete == null){
+            return false;
+        }
+
         String sql = """
                 DELETE FROM albums
                 WHERE album_id = ?
                 """;
 
         jdbcTemplate.update(sql, albumId);
+        return true;
     }
 }

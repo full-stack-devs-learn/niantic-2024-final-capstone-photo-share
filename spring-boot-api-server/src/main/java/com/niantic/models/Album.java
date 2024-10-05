@@ -2,6 +2,7 @@ package com.niantic.models;
 
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,12 +12,12 @@ public class Album
     private int userId;
     private String title;
     private String description;
-    private Date createdAt;
+    private LocalDateTime createdAt;
     private ArrayList<Post> posts = new ArrayList<>();
 
     public Album(){}
 
-    public Album(int albumId, int userId, String title, String description, Date createdAt) {
+    public Album(int albumId, int userId, String title, String description, LocalDateTime createdAt) {
         this.albumId = albumId;
         this.userId = userId;
         this.title = title;
@@ -57,11 +58,11 @@ public class Album
         this.description = description;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
