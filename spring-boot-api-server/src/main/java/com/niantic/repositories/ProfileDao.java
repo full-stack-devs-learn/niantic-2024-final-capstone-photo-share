@@ -6,11 +6,10 @@ import java.util.List;
 
 public interface ProfileDao {
 
-    List<Profile> getAllProfiles();
-
+    List<Profile> getAllProfiles(int page, int size);
+    int getTotalProfileCount();
     Profile getProfile(int profileId);
 
-    List<Profile> searchProfiles(String query);
     Profile addProfile(Profile profile);
     boolean updateProfile(int profileId, Profile profile);
     boolean deleteProfile(int profileId);
