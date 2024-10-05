@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import PhotoUploadButton from '../PhotoUploadButton';
@@ -23,6 +25,7 @@ export default function PostCreationModal() {
     const [captions, setCaptions] = useState("");
 
     const cld = new Cloudinary({ cloud: { cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME } });
+    const { user } = useSelector((state: RootState) => state.authentication)
 
     function showUploadedPhoto(public_id: string)
     {
@@ -41,7 +44,7 @@ export default function PostCreationModal() {
         event.preventDefault();
 
         const newPhotoPost = {
-            userId: 1,
+            userId: user?.id,
             imgUrl: publicId,
             title: title,
             captions: captions
