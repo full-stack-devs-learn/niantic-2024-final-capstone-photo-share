@@ -1,5 +1,6 @@
 import cloudinaryApiService from "../services/cloudinary-api-service";
 import { useState } from "react";
+import { Button } from "react-bootstrap";
 
 export default function PhotoUploadButton({onPhotoUploaded}: {onPhotoUploaded: Function})
 {
@@ -44,7 +45,7 @@ export default function PhotoUploadButton({onPhotoUploaded}: {onPhotoUploaded: F
                 setFile(e.target.files![0]);
             }}
             ></input>
-            <button type="submit">Upload</button>
+            <Button variant="secondary" type="submit">Upload</Button>
             <p>{message}</p>
         </form>
         </>

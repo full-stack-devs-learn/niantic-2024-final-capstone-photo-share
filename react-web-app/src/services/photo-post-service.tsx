@@ -15,6 +15,12 @@ class PhotoPostService
         const response = await axios.get(this.baseUrl + `/${postId}`);
         return response.data;
     }
+
+    async add(post: any)
+    {
+        const response = await axios.post(this.baseUrl, post);
+        return response.data;
+    }
 }
 
 export default new PhotoPostService();

@@ -1,4 +1,4 @@
-import { Card, Button } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage } from '@cloudinary/react';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
@@ -33,7 +33,6 @@ export default function PhotoPostCard({userId, imgUrl, title, captions, reaction
             <Card.Title>{title}</Card.Title>
             <Card.Text>{captions}</Card.Text>
             <Card.Text>{reactions}<FontAwesomeIcon icon={faHeart} /></Card.Text>
-            <Button variant="primary">Go somewhere</Button>
             </Card.Body>
         </Card>
     )

@@ -17,7 +17,8 @@ export default function PhotoPostFeed()
         <>
         {
             posts.map((post) => (
-                <PhotoPostCard userId={post.userId}
+                <PhotoPostCard key={post.postId}
+                userId={post.userId}
                 imgUrl={post.imgUrl}
                 title={post.title}
                 captions={post.captions}
