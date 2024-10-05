@@ -6,6 +6,7 @@ import Header from './components/shared/header/Header'
 import Login from './components/authentication/login/Login'
 import Register from './components/authentication/register/Register'
 import PostCreationModal from './components/post-creation-modal/PostCreationModal'
+import PhotoPostFeed from './components/photo-post/PhotoPostFeed'
 
 export default function App() {
     return (
@@ -19,6 +20,7 @@ export default function App() {
             <Route path="/register" element={<Register />} />
             </Routes>
             <PostCreationModal></PostCreationModal>
+            <PhotoPostFeed></PhotoPostFeed>
         </main>
         </Router>
     );
