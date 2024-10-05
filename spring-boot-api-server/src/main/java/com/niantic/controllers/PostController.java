@@ -5,7 +5,6 @@ import com.niantic.repositories.MySqlAlbumDao;
 import com.niantic.repositories.MySqlPostDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +42,7 @@ public class PostController {
     {
         try
         {
-            var result = mySqlPostDao.getPostById(postId);
+            var result = mySqlPostDao.getPost(postId);
 
             if(result == null)
             {
@@ -97,7 +96,6 @@ public class PostController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> addPost(@RequestBody Post post)
     {
         Post newPost = mySqlPostDao.addPost(post);
@@ -109,7 +107,7 @@ public class PostController {
     {
         try
         {
-            Post targetPost = mySqlPostDao.getPostById(postId);
+            Post targetPost = mySqlPostDao.getPost(postId);
             if(targetPost == null)
             {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not found");
@@ -120,7 +118,7 @@ public class PostController {
             {
                 return ResponseEntity.badRequest().build();
             }
-            Post updatedPost = mySqlPostDao.getPostById(postId);
+            Post updatedPost = mySqlPostDao.getPost(postId);
             return ResponseEntity.ok(updatedPost);
         }
         catch(Exception e)

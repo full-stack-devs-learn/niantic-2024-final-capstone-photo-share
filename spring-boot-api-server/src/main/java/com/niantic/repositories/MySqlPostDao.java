@@ -3,6 +3,7 @@ package com.niantic.repositories;
 import com.niantic.models.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -25,129 +26,94 @@ public class MySqlPostDao implements PostDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    @Override
     public List<Post> getAllPosts()
     {
-        List<Post> posts = new ArrayList<>();
-
         String sql = """
-                    SELECT *
-                    FROM posts
+                    SELECT
+                        *
+                    FROM
+                        posts
                     """;
 
-        SqlRowSet row = jdbcTemplate.queryForRowSet(sql);
+        List<Post> results = jdbcTemplate.query(
+                sql,
+                new PostRowMapper()
+        );
 
-        while(row.next())
-        {
-            int postId = row.getInt("post_id");
-            int userId = row.getInt("user_id");
-            String imgUrl = row.getString("img_url");
-            String title = row.getString("title");
-            String captions = row.getString("captions");
-            int reactions = row.getInt("reactions");
-            Integer albumId = (Integer) row.getObject("album_id");
-            LocalDateTime createdAt = row.getTimestamp("created_at").toLocalDateTime();
-
-            Post post = new Post(postId, userId, imgUrl, title, captions, reactions, albumId, createdAt);
-
-            posts.add(post);
-        }
-        return posts;
+        return results;
     };
 
+    @Override
     public List<Post> getPostsByUserId(int userId)
     {
-        List<Post> posts = new ArrayList<>();
-
         String sql = """
-                    SELECT *
-                    FROM posts
-                    WHERE user_id = ?
+                    SELECT
+                        *
+                    FROM
+                        posts
+                    WHERE
+                        user_id = ?
                     """;
 
-        SqlRowSet row = jdbcTemplate.queryForRowSet(sql, userId);
+        List<Post> results = jdbcTemplate.query(
+                sql,
+                new Object[]{userId},
+                new PostRowMapper()
+        );
 
-        while(row.next())
-        {
-            int postId = row.getInt("post_id");
-            userId = row.getInt("user_id");
-            String imgUrl = row.getString("img_url");
-            String title = row.getString("title");
-            String captions = row.getString("captions");
-            int reactions = row.getInt("reactions");
-            Integer albumId = (Integer) row.getObject("album_id");
-            LocalDateTime createdAt = row.getTimestamp("created_at").toLocalDateTime();
-
-            Post post = new Post(postId, userId, imgUrl, title, captions, reactions, albumId, createdAt);
-
-            posts.add(post);
-        }
-        return posts;
+        return results;
     }
 
+    @Override
     public List<Post> getPostsByAlbumId(Integer albumId)
     {
-        List<Post> posts = new ArrayList<>();
-
         String sql = """
                     SELECT *
-                    FROM posts
-                    WHERE album_id = ?
+                        FROM posts
+                    WHERE
+                        album_id = ?
                     """;
 
-        SqlRowSet row = jdbcTemplate.queryForRowSet(sql, albumId);
+        List<Post> results = jdbcTemplate.query(
+                sql,
+                new Object[]{albumId},
+                new PostRowMapper()
+        );
 
-        while(row.next())
-        {
-            int postId = row.getInt("post_id");
-            int userId = row.getInt("user_id");
-            String imgUrl = row.getString("img_url");
-            String title = row.getString("title");
-            String captions = row.getString("captions");
-            int reactions = row.getInt("reactions");
-            albumId = (Integer) row.getObject("album_id");
-            LocalDateTime createdAt = row.getTimestamp("created_at").toLocalDateTime();
-
-            Post post = new Post(postId, userId, imgUrl, title, captions, reactions, albumId, createdAt);
-
-            posts.add(post);
-        }
-        return posts;
+        return results;
     }
 
-    public Post getPostById(int postId)
+    @Override
+    public Post getPost(int postId)
     {
-        Post post = null;
-
         String sql = """
-                    SELECT *
-                    FROM posts
-                    WHERE post_id = ?
+                    SELECT
+                        *
+                    FROM
+                        posts
+                    WHERE
+                        post_id = ?
                     """;
 
-        SqlRowSet row = jdbcTemplate.queryForRowSet(sql, postId);
+         List<Post> result = jdbcTemplate.query(
+                 sql,
+                 new Object[]{postId},
+                 new PostRowMapper()
+         );
 
-        if(row.next())
-        {
-            postId = row.getInt("post_id");
-            int userId = row.getInt("user_id");
-            String imgUrl = row.getString("img_url");
-            String title = row.getString("title");
-            String captions = row.getString("captions");
-            int reactions = row.getInt("reactions");
-            Integer albumId = (Integer) row.getObject("album_id");
-            LocalDateTime createdAt = row.getTimestamp("created_at").toLocalDateTime();
-
-            post = new Post(postId, userId, imgUrl, title, captions, reactions, albumId, createdAt);
-        }
-        return post;
+        return result.getFirst();
     }
 
+    @Override
     public Post addPost(Post post)
     {
         String sql = """
-                    INSERT INTO posts
-                    (user_id, img_url, title, captions, reactions, album_id)
-                    VALUES (?,?,?,?,DEFAULT,?)
+                    INSERT INTO
+                        posts
+                        (user_id, img_url, title, captions, reactions, album_id)
+                    VALUES
+                        (?,?,?,?,DEFAULT,?)
                     """;
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -173,9 +139,10 @@ public class MySqlPostDao implements PostDao {
 
         int newId = keyHolder.getKey().intValue();
 
-        return getPostById(newId);
+        return this.getPost(newId);
     }
 
+    @Override
     public boolean updatePost(int postId, Post post)
     {
         try
@@ -206,7 +173,6 @@ public class MySqlPostDao implements PostDao {
 
             jdbcTemplate.update(sql.toString(), sqlColumns.toArray());
             return true;
-
         }
         catch(Exception e)
         {
@@ -214,9 +180,10 @@ public class MySqlPostDao implements PostDao {
         }
     }
 
+    @Override
     public boolean deletePost(int postId)
     {
-        var postToDelete = getPostById(postId);
+        var postToDelete = this.getPost(postId);
 
         if(postToDelete != null)
         {
@@ -228,6 +195,28 @@ public class MySqlPostDao implements PostDao {
 
             return true;
         }
+
         return false;
+    }
+
+    public static class PostRowMapper implements RowMapper<Post>
+    {
+
+        @Override
+        public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+            Post post = new Post(
+                    rs.getInt("post_id"),
+                    rs.getInt("user_id"),
+                    rs.getString("img_url"),
+                    rs.getString("title"),
+                    rs.getString("captions"),
+                    rs.getInt("reactions"),
+                    (Integer)rs.getObject("album_id"),
+                    rs.getTimestamp("created_at").toLocalDateTime()
+            );
+
+            return post;
+        }
     }
 }
