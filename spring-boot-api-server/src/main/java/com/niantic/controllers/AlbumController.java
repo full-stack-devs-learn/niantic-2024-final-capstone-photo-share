@@ -38,8 +38,8 @@ public class AlbumController {
         }
     }
 
-    @GetMapping(path = "{profileId}")
-    public ResponseEntity<?> getAllAlbumsByProfileId(@PathVariable int profileId)
+    @GetMapping(params = "{profileId}")
+    public ResponseEntity<?> getAllAlbumsByProfileId(@RequestParam int profileId)
     {
         try
         {

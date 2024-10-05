@@ -6,12 +6,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +39,11 @@ public class MySqlPostDao implements PostDao {
                 new PostRowMapper()
         );
 
-        return results;
+        List<Post> posts = results.isEmpty()
+                ? null
+                : results;
+
+        return posts;
     };
 
     @Override
@@ -62,7 +64,11 @@ public class MySqlPostDao implements PostDao {
                 new PostRowMapper()
         );
 
-        return results;
+        List<Post> posts = results.isEmpty()
+                ? null
+                : results;
+
+        return posts;
     }
 
     @Override
@@ -81,7 +87,11 @@ public class MySqlPostDao implements PostDao {
                 new PostRowMapper()
         );
 
-        return results;
+        List<Post> posts = results.isEmpty()
+                ? null
+                : results;
+
+        return posts;
     }
 
     @Override
@@ -102,7 +112,11 @@ public class MySqlPostDao implements PostDao {
                  new PostRowMapper()
          );
 
-        return result.getFirst();
+        Post post = result.isEmpty()
+                ? null
+                : result.getFirst();
+
+        return post;
     }
 
     @Override
@@ -188,8 +202,10 @@ public class MySqlPostDao implements PostDao {
         if(postToDelete != null)
         {
             String sql = """
-                DELETE FROM posts
-                WHERE post_id = ?
+                DELETE FROM
+                    posts
+                WHERE
+                    post_id = ?
                 """;
             jdbcTemplate.update(sql, postId);
 

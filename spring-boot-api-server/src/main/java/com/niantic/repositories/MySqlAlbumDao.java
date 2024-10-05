@@ -1,22 +1,18 @@
 package com.niantic.repositories;
 
 import com.niantic.models.Album;
-import com.niantic.models.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -30,57 +26,46 @@ public class MySqlAlbumDao implements AlbumDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<Album> getAllAlbums() {
-
-        List<Album> albums = new ArrayList<>();
-
+    public List<Album> getAllAlbums()
+    {
         String sql = """
-                SELECT *
-                FROM albums
+                SELECT
+                    *
+                FROM
+                    albums
                 """;
 
-        SqlRowSet row = jdbcTemplate.queryForRowSet(sql);
+        List<Album> results = jdbcTemplate.query(
+                sql,
+                new AlbumRowMapper()
+        );
 
-        while(row.next())
-        {
-            int albumId = row.getInt("album_id");
-            int userId = row.getInt("user_id");
-            String title = row.getString("title");
-            String description = row.getString("description");
-            LocalDateTime createdAt = row.getTimestamp("created_at").toLocalDateTime();
-
-            Album album = new Album(albumId, userId, title, description, createdAt);
-
-            albums.add(album);
-        }
+        List<Album> albums = results.isEmpty()
+                ? null
+                : results;
 
         return albums;
     }
 
     public List<Album> getAllAlbumsByUserId(int userId)
     {
-        List<Album> albums = new ArrayList<>();
-
         String sql = """
-                SELECT *
-                FROM albums
-                WHERE user_id = ?
+                SELECT
+                    *
+                FROM
+                    albums
+                WHERE
+                    user_id = ?
                 """;
 
-        SqlRowSet row = jdbcTemplate.queryForRowSet(sql, userId);
+        List<Album> result = jdbcTemplate.query(sql,
+                new Object[]{userId},
+                new AlbumRowMapper()
+        );
 
-        while(row.next())
-        {
-            int albumId = row.getInt("album_id");
-            userId = row.getInt("user_id");
-            String title = row.getString("title");
-            String description = row.getString("description");
-            LocalDateTime createdAt = row.getTimestamp("created_at").toLocalDateTime();
-
-            Album album = new Album(albumId, userId, title, description, createdAt);
-
-            albums.add(album);
-        }
+        List<Album> albums = result.isEmpty()
+                ? null
+                : result;
 
         return albums;
     }
@@ -88,33 +73,35 @@ public class MySqlAlbumDao implements AlbumDao {
     public Album getAlbum(int albumId)
     {
         String sql = """
-                SELECT *
-                FROM albums
-                WHERE album_id = ?
+                SELECT
+                    *
+                FROM
+                    albums
+                WHERE
+                    album_id = ?
                 """;
 
-        SqlRowSet row = jdbcTemplate.queryForRowSet(sql, albumId);
+        List<Album> result = jdbcTemplate.query(
+                sql,
+                new Object[]{albumId},
+                new AlbumRowMapper()
+        );
 
-        if (row.next())
-        {
-            albumId = row.getInt("album_id");
-            int userId = row.getInt("user_id");
-            String title = row.getString("title");
-            String description = row.getString("description");
-            LocalDateTime createdAt = row.getTimestamp("created_at").toLocalDateTime();
+        Album album = result.isEmpty()
+                ? null
+                : result.getFirst();
 
-            Album album = new Album(albumId, userId, title, description, createdAt);
-
-            return album;
-        }
-        return null;
+        return album;
     }
 
     public Album addAlbum(Album album)
     {
         String sql = """
-               INSERT INTO albums (user_id, title, description)
-               VALUES (?, ?, ?)
+               INSERT INTO
+                    albums
+                    (user_id, title, description)
+               VALUES
+                    (?, ?, ?)
                """;
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -135,26 +122,31 @@ public class MySqlAlbumDao implements AlbumDao {
 
     public boolean updateAlbum(int albumId, Album album)
     {
-        var albumToUpdate = getAlbum(albumId);
-        if(albumToUpdate == null)
+        try
+        {
+            List<Object> sqlColumns = new ArrayList<>();
+            StringBuilder sql = new StringBuilder("Update albums SET ");
+
+            if (album.getTitle() != null) {
+                sql.append("img_url = ?, ");
+                sqlColumns.add(album.getTitle());
+            }
+            if (album.getDescription() != null) {
+                sql.append("description = ?, ");
+                sqlColumns.add(album.getDescription());
+            }
+
+            sql.setLength(sql.length() - 2);
+            sql.append(" WHERE album_id = ?;");
+            sqlColumns.add(albumId);
+
+            jdbcTemplate.update(sql.toString(), sqlColumns.toArray());
+            return true;
+        }
+        catch(Exception e)
         {
             return false;
         }
-        String sql = """
-                UPDATE albums
-                SET
-                    title = ?
-                    description = ?
-                WHERE
-                    album_id = ?
-                """;
-
-        jdbcTemplate.update(sql,
-                  album.getTitle()
-                , album.getDescription()
-                , albumId
-                );
-        return true;
     }
 
     public boolean deleteAlbum(int albumId) {
@@ -171,6 +163,24 @@ public class MySqlAlbumDao implements AlbumDao {
 
         jdbcTemplate.update(sql, albumId);
         return true;
+    }
+
+    public static class AlbumRowMapper implements RowMapper<Album>
+    {
+
+        @Override
+        public Album mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+            Album album = new Album(
+                    rs.getInt("album_id"),
+                    rs.getInt("user_id"),
+                    rs.getString("title"),
+                    rs.getString("description"),
+                    rs.getTimestamp("created_at").toLocalDateTime()
+            );
+
+            return album;
+        }
     }
 
 }

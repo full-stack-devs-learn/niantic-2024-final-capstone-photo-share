@@ -181,12 +181,14 @@ public class MySqlProfileDao implements ProfileDao {
 
         @Override
         public Profile mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Profile profile = new Profile();
-            profile.setProfileId(rs.getInt("profile_id"));
-            profile.setUserId(rs.getInt("user_id"));
-            profile.setUserName(rs.getString("username"));
-            profile.setProfileImg(rs.getString("profile_img"));
-            profile.setBio(rs.getString("bio"));
+
+            Profile profile = new Profile(
+                    rs.getInt("profile_id"),
+                    rs.getInt("user_id"),
+                    rs.getString("username"),
+                    rs.getString("profile_img"),
+                    rs.getString("bio")
+            );
 
             return profile;
         }
