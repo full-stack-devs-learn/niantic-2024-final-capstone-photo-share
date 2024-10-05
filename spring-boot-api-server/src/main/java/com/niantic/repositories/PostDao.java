@@ -11,7 +11,7 @@ public interface PostDao {
 
     List<Post> getPostsByAlbumId(Integer albumId);
 
-    Post getPostById(int postId);
+    Post getPost(int postId);
 
     Post addPost(Post post);
 
