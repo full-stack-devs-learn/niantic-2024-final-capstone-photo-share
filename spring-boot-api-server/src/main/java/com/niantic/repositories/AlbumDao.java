@@ -8,15 +8,9 @@ import java.util.List;
 public interface AlbumDao {
 
     List<Album> getAllAlbums();
-
     List<Album> getAllAlbumsByUserId(int userId);
-
     Album getAlbum(int albumId);
-
     Album addAlbum(Album album);
-
     boolean updateAlbum(int albumId, Album Album);
-
     boolean deleteAlbum(int albumId);
-
 }

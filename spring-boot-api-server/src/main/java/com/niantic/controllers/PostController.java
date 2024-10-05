@@ -57,8 +57,8 @@ public class PostController {
         }
     }
 
-    @GetMapping(params = "profileId")
-    public ResponseEntity<?> getPostByProfileId(@RequestParam int profileId)
+    @GetMapping(path = "/profile/{profileId}")
+    public ResponseEntity<?> getPostByProfileId(@PathVariable int profileId)
     {
         try
         {
@@ -77,8 +77,8 @@ public class PostController {
         }
     }
 
-    @GetMapping(params = "albumId")
-    public ResponseEntity<?> getPostByAlbumId(@RequestParam int albumId)
+    @GetMapping(path = "/album/{albumId}")
+    public ResponseEntity<?> getPostByAlbumId(@PathVariable int albumId)
     {
         try
         {
