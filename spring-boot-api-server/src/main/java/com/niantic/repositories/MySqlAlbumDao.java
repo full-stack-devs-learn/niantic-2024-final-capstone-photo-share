@@ -128,7 +128,7 @@ public class MySqlAlbumDao implements AlbumDao {
             StringBuilder sql = new StringBuilder("Update albums SET ");
 
             if (album.getTitle() != null) {
-                sql.append("img_url = ?, ");
+                sql.append("public_id = ?, ");
                 sqlColumns.add(album.getTitle());
             }
             if (album.getDescription() != null) {

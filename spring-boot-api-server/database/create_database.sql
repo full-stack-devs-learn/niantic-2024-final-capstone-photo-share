@@ -89,8 +89,15 @@ VALUES
 
 INSERT INTO posts (user_id, public_id, title, captions, created_at, album_id)
 VALUES
-(1, 'testImg1.jpg', 'Post Title 1', 'This is the caption for post 1', NOW(), 1),
-(2, 'testImg2.jpg', 'Post Title 2', 'This is the caption for post 2', NOW(), NULL),
-(3, 'testImg3.jpg', 'Post Title 3', 'This is the caption for post 3', NOW(), NULL),
-(1, 'testImg4.jpg', 'Post Title 4', 'This is the caption for post 4', NOW(), NULL),
-(2, 'testImg5.jpg', 'Post Title 5', 'This is the caption for post 5', NOW(), NULL);
+(1, 'cld-sample-2', 'Post Title 1', 'This is the caption for post 1', NOW(), 1),
+(2, 'cld-sample-3', 'Post Title 2', 'This is the caption for post 2', NOW(), NULL),
+(3, 'cld-sample-4', 'Post Title 3', 'This is the caption for post 3', NOW(), NULL),
+(1, 'cld-sample-5', 'Post Title 4', 'This is the caption for post 4', NOW(), NULL),
+(2, 'MooDeng_aqxolp', 'Post Title 5', 'This is the caption for post 5', NOW(), NULL),
+(2, 'cld-sample', 'Post Title 6', 'This is the caption for post 6', NOW(), NULL),
+(1, 'sample', 'Post Title 7', 'This is the caption for post 7', NOW(), NULL),
+(1, 'alin-gavriliuc-eRSqX5Vz1g0-unsplash_oeeeoe', 'Post Title 8', 'This is the caption for post 8', NOW(), NULL),
+(1, 'rebeca-g-sendroiu-8q3hMAfz0Jg-unsplash_tnjz86', 'Post Title 9', 'This is the caption for post 9', NOW(), NULL),
+(1, 'vicky-ToyX8yzU0SU-unsplash_rwvlea', 'Post Title 10', 'This is the caption for post 10', NOW(), NULL),
+(1, 'andrea-davis-gIA1bMAkIPM-unsplash_hmlquw', 'Post Title 11', 'This is the caption for post 11', NOW(), NULL),
+(1, 'carter-obasohan-QwmKJTO8hyE-unsplash_yhcdre', 'Post Title 12', 'This is the caption for post 12', NOW(), NULL);

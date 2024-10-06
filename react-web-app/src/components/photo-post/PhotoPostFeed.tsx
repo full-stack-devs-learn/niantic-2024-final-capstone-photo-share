@@ -2,6 +2,7 @@ import photoPostService from "../../services/photo-post-service";
 import { useState, useEffect } from 'react';
 import PhotoPostCard from "./PhotoPostCard";
 import { PhotoPost } from "../../models/photo-post";
+import { Button } from "react-bootstrap";
 
 export default function PhotoPostFeed({onNewPostCreated}: {onNewPostCreated: any})
 {
@@ -12,7 +13,10 @@ export default function PhotoPostFeed({onNewPostCreated}: {onNewPostCreated: any
         photoPostService.getAllPosts(pageNum).then(data => {
             setPosts(data);
         })
-    }, [onNewPostCreated]);
+    }, [onNewPostCreated, pageNum]);
+
+    const handleNextPage = () => setPageNum(pageNum + 1);
+    const handlePrevPage = () => setPageNum(pageNum - 1);
 
     return (
         <>
@@ -27,6 +31,10 @@ export default function PhotoPostFeed({onNewPostCreated}: {onNewPostCreated: any
                 ></PhotoPostCard>
             ))
         }
+
+        {pageNum !== 1 && <Button onClick={handlePrevPage}>Prev</Button>}
+
+        <Button onClick={handleNextPage}>Next</Button>
         </>
     )
 }

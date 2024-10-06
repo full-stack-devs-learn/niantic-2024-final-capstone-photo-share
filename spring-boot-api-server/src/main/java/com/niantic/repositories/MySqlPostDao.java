@@ -134,7 +134,7 @@ public class MySqlPostDao implements PostDao {
         String sql = """
                     INSERT INTO
                         posts
-                        (user_id, img_url, title, captions, reactions, album_id)
+                        (user_id, public_id, title, captions, reactions, album_id)
                     VALUES
                         (?,?,?,?,DEFAULT,?)
                     """;
@@ -174,7 +174,7 @@ public class MySqlPostDao implements PostDao {
             StringBuilder sql = new StringBuilder("Update posts SET ");
 
             if (post.getPublicId() != null) {
-                sql.append("img_url = ?, ");
+                sql.append("public_id = ?, ");
                 sqlColumns.add(post.getPublicId());
             }
             if (post.getTitle() != null) {
