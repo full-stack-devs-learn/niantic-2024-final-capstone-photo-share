@@ -25,17 +25,26 @@ public class MySqlPostDao implements PostDao {
     }
 
     @Override
-    public List<Post> getAllPosts()
+    public List<Post> getAllPosts(int page, int size)
     {
+        int offset = (page-1) * size;
+
         String sql = """
                     SELECT
                         *
                     FROM
                         posts
+                    ORDER BY
+                        created_at DESC
+                    LIMIT
+                        ?
+                    OFFSET
+                        ?
                     """;
 
         List<Post> results = jdbcTemplate.query(
                 sql,
+                new Object[]{size, offset},
                 new PostRowMapper()
         );
 
@@ -137,7 +146,7 @@ public class MySqlPostDao implements PostDao {
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             statement.setInt(1, post.getUserId());
-            statement.setString(2, post.getImgUrl());
+            statement.setString(2, post.getPublicId());
             statement.setString(3, post.getTitle());
             statement.setString(4, post.getCaptions());
 
@@ -164,9 +173,9 @@ public class MySqlPostDao implements PostDao {
             List<Object> sqlColumns = new ArrayList<>();
             StringBuilder sql = new StringBuilder("Update posts SET ");
 
-            if (post.getImgUrl() != null) {
+            if (post.getPublicId() != null) {
                 sql.append("img_url = ?, ");
-                sqlColumns.add(post.getImgUrl());
+                sqlColumns.add(post.getPublicId());
             }
             if (post.getTitle() != null) {
                 sql.append("title = ?, ");
@@ -224,7 +233,7 @@ public class MySqlPostDao implements PostDao {
             Post post = new Post(
                     rs.getInt("post_id"),
                     rs.getInt("user_id"),
-                    rs.getString("img_url"),
+                    rs.getString("public_id"),
                     rs.getString("title"),
                     rs.getString("captions"),
                     rs.getInt("reactions"),

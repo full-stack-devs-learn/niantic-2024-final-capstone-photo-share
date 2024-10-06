@@ -18,12 +18,12 @@ public class PostController {
     @Autowired
     private MySqlAlbumDao mySqlAlbumDao;
 
-    @GetMapping
-    public ResponseEntity<?> getAllPosts()
+    @GetMapping(params = {"page","size"})
+    public ResponseEntity<?> getAllPosts(@RequestParam int page, int size)
     {
         try
         {
-            var results = mySqlPostDao.getAllPosts();
+            var results = mySqlPostDao.getAllPosts(page, size);
 
             if(results.isEmpty())
             {
