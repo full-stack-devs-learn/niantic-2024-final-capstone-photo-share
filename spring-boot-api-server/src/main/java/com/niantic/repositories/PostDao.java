@@ -5,17 +5,11 @@ import java.util.List;
 
 public interface PostDao {
 
-    List<Post> getAllPosts();
-
+    List<Post> getAllPosts(int page, int size);
     List<Post> getPostsByUserId(int userId);
-
     List<Post> getPostsByAlbumId(Integer albumId);
-
-    Post getPostById(int postId);
-
+    Post getPost(int postId);
     Post addPost(Post post);
-
     boolean updatePost(int postId, Post post);
-
     boolean deletePost(int postId);
 }

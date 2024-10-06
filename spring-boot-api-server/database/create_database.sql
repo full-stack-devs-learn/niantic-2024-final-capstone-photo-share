@@ -63,7 +63,7 @@ CREATE TABLE albums (
 CREATE TABLE posts (
     post_id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
-    img_url VARCHAR(255) NOT NULL,
+    public_id VARCHAR(255) NOT NULL,
     title VARCHAR(25) NOT NULL,
     captions VARCHAR(100),
     reactions INT DEFAULT 0,
@@ -87,7 +87,7 @@ INSERT INTO albums (user_id, title, description, created_at)
 VALUES
 (1, 'My First Album', 'This is the description of the first album', NOW());
 
-INSERT INTO posts (user_id, img_url, title, captions, created_at, album_id)
+INSERT INTO posts (user_id, public_id, title, captions, created_at, album_id)
 VALUES
 (1, 'testImg1.jpg', 'Post Title 1', 'This is the caption for post 1', NOW(), 1),
 (2, 'testImg2.jpg', 'Post Title 2', 'This is the caption for post 2', NOW(), NULL),

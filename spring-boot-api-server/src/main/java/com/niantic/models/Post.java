@@ -15,7 +15,7 @@ public class Post
 {
     private int postId;
     private int userId;
-    private String imgUrl;
+    private String publicId;
     private String title;
     private String captions;
     private int reactions;
