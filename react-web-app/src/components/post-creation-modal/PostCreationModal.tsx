@@ -52,6 +52,7 @@ export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated:
 
         await photoPostService.add(newPhotoPost).then(handleClose)
         onNewPostCreated(publicId);
+        setUploadedImg(undefined);
     }
 
     return (
