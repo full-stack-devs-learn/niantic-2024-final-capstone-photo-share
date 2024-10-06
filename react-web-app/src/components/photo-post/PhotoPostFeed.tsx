@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import PhotoPostCard from "./PhotoPostCard";
 import { PhotoPost } from "../../models/photo-post";
 
-export default function PhotoPostFeed()
+export default function PhotoPostFeed({onNewPostCreated}: {onNewPostCreated: any})
 {
     const [posts, setPosts] = useState<PhotoPost[]>([]);
 
@@ -11,7 +11,7 @@ export default function PhotoPostFeed()
         photoPostService.getAllPosts().then(data => {
             setPosts(data);
         })
-    }, []);
+    }, [onNewPostCreated]);
 
     return (
         <>

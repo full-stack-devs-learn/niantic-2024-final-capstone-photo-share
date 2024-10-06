@@ -14,7 +14,7 @@ import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { auto } from '@cloudinary/url-gen/actions/resize';
 import photoPostService from '../../services/photo-post-service';
 
-export default function PostCreationModal() {
+export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated: any}) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -50,7 +50,8 @@ export default function PostCreationModal() {
             captions: captions
         }
 
-        await photoPostService.add(newPhotoPost);
+        await photoPostService.add(newPhotoPost).then(handleClose)
+        onNewPostCreated(publicId);
     }
 
     return (
