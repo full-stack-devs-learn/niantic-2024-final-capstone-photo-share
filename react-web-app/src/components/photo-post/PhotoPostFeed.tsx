@@ -6,9 +6,10 @@ import { PhotoPost } from "../../models/photo-post";
 export default function PhotoPostFeed({onNewPostCreated}: {onNewPostCreated: any})
 {
     const [posts, setPosts] = useState<PhotoPost[]>([]);
+    const [pageNum, setPageNum] = useState<number>(1);
 
     useEffect(() => {
-        photoPostService.getAllPosts().then(data => {
+        photoPostService.getAllPosts(pageNum).then(data => {
             setPosts(data);
         })
     }, [onNewPostCreated]);
@@ -19,7 +20,7 @@ export default function PhotoPostFeed({onNewPostCreated}: {onNewPostCreated: any
             posts.map((post) => (
                 <PhotoPostCard key={post.postId}
                 userId={post.userId}
-                imgUrl={post.imgUrl}
+                publicId={post.publicId}
                 title={post.title}
                 captions={post.captions}
                 reactions={post.reactions}

@@ -1,7 +1,7 @@
 export interface PhotoPost{
     postId: number
     userId: number
-    imgUrl: string
+    publicId: string
     title: string
     captions: string
     reactions: number

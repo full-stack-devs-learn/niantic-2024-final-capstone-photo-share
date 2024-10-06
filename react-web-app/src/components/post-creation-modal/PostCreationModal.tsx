@@ -45,7 +45,7 @@ export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated:
 
         const newPhotoPost = {
             userId: user?.id,
-            imgUrl: publicId,
+            publicId: publicId,
             title: title,
             captions: captions
         }
