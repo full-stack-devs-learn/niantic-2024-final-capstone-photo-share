@@ -2,8 +2,9 @@ import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage } from '@cloudinary/react';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { auto } from '@cloudinary/url-gen/actions/resize';
+import { Card } from 'react-bootstrap';
 
-export default function ThumbnailCard({publicId}: {publicId: string})
+export default function ThumbnailCard({publicId, title}: {publicId: string, title: string})
 {
     const cld = new Cloudinary({ cloud: { cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME } });
 
@@ -14,6 +15,9 @@ export default function ThumbnailCard({publicId}: {publicId: string})
     .resize(auto().gravity(autoGravity()).width(300).height(300));
 
     return (
-        <AdvancedImage cldImg={img} />
+        <Card style={{ width: '18rem' }}>
+            <AdvancedImage cldImg={img} />
+            <p>{title}</p>
+        </Card>
     )
 }

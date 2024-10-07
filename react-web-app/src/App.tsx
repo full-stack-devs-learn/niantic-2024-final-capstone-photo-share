@@ -16,6 +16,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile/:profileId" element={<ProfilePage/>} />
+            <Route path="/profile/:profileId/albums" element={<ProfilePage />} />
             </Routes>
         </Router>
     );
