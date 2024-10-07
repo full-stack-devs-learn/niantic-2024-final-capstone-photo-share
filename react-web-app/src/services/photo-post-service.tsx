@@ -10,9 +10,15 @@ class PhotoPostService
         return response.data;
     }
 
-    async getById(postId: string)
+    async getById(postId: number)
     {
         const response = await axios.get(this.baseUrl + `/${postId}`);
+        return response.data;
+    }
+
+    async getByUser(userId: number)
+    {
+        const response = await axios.get(this.baseUrl + `/profile/${userId}`);
         return response.data;
     }
 
