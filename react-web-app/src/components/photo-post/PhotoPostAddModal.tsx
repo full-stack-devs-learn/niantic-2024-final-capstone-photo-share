@@ -12,6 +12,7 @@ import { AdvancedImage } from '@cloudinary/react';
 // Cloudinary - Import any actions required for transformations.
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { auto } from '@cloudinary/url-gen/actions/resize';
+
 import photoPostService from '../../services/photo-post-service';
 
 export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated: any}) {
@@ -25,7 +26,8 @@ export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated:
     const [captions, setCaptions] = useState("");
 
     const cld = new Cloudinary({ cloud: { cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME } });
-    const { user } = useSelector((state: RootState) => state.authentication)
+
+    const { user } = useSelector((state: RootState) => state.authentication);
 
     function showUploadedPhoto(public_id: string)
     {
