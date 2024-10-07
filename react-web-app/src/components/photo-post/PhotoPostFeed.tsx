@@ -24,6 +24,7 @@ export default function PhotoPostFeed({onNewPostCreated}: {onNewPostCreated: any
             posts.map((post) => (
                 <PhotoPostCard key={post.postId}
                 userId={post.userId}
+                postId={post.postId}
                 publicId={post.publicId}
                 title={post.title}
                 captions={post.captions}
