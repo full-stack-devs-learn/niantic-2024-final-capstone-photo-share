@@ -11,8 +11,6 @@ export default function App() {
     return (
         <Router>
         <Header />
-
-        <main className="container mt-4">
             <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -20,7 +18,6 @@ export default function App() {
             <Route path="/profile/:profileId" element={<ProfilePage/>} />
             <Route path="/profile/:profileId/albums" element={<ProfilePage />} />
             </Routes>
-        </main>
         </Router>
     );
 }
