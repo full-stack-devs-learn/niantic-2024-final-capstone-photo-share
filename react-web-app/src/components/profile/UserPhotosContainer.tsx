@@ -15,11 +15,13 @@ export default function UserPhotosContainer({profileId}: {profileId: number})
     }, [profileId]);
 
     return (
-        <section>
+        // Perhaps grid would be easier with 3 fr width and some gap
+        <section className="d-flex">
             {
                 posts.map((post) => (
                     <ThumbnailCard key={post.postId}
                         publicId={post.publicId}
+                        title={post.title}
                         ></ThumbnailCard>
                 ))
             }
