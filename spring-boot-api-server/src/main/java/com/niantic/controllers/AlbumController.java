@@ -77,7 +77,7 @@ public class AlbumController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addAlbum(Album album)
+    public ResponseEntity<?> addAlbum(@RequestBody Album album)
     {
         Album newAlbum = mySqlAlbumDao.addAlbum(album);
         return ResponseEntity.status(HttpStatus.CREATED).body(newAlbum);
