@@ -101,6 +101,24 @@ public class PostController {
         Post newPost = mySqlPostDao.addPost(post);
         return ResponseEntity.status(HttpStatus.CREATED).body(newPost);
     }
+    @PostMapping("/interact")
+    public ResponseEntity<?> interactPost(@RequestParam int postId, @RequestParam int userId)
+    {
+        try
+        {
+            var isSuccessful = mySqlPostDao.interactPost(postId, userId);
+            if(!isSuccessful){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 
     @PutMapping(path = "{postId}")
     public ResponseEntity<?> updatePost(@PathVariable int postId, @RequestBody Post post)

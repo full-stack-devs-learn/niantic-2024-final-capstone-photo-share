@@ -74,6 +74,18 @@ CREATE TABLE posts (
     FOREIGN KEY (album_id) REFERENCES Albums(album_id)
 );
 
+CREATE TABLE post_interactions (
+    post_id INT NOT NULL,
+    user_id INT NOT NULL,
+    interacted BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    UNIQUE (post_id, user_id)
+);
+
+
+-- DATA --
 INSERT INTO profiles(user_id, profile_img, bio)
 VALUES
 (1, "profile_img1.jpg", "Hello, I'm user 1!"),
@@ -101,3 +113,26 @@ VALUES
 (1, 'vicky-ToyX8yzU0SU-unsplash_rwvlea', 'Post Title 10', 'This is the caption for post 10', NOW(), NULL),
 (1, 'andrea-davis-gIA1bMAkIPM-unsplash_hmlquw', 'Post Title 11', 'This is the caption for post 11', NOW(), NULL),
 (1, 'carter-obasohan-QwmKJTO8hyE-unsplash_yhcdre', 'Post Title 12', 'This is the caption for post 12', NOW(), NULL);
+
+
+-- ADDING LIKES --
+INSERT INTO post_interactions (post_id, user_id, interacted, created_at) VALUES 
+(1, 1, TRUE, CURRENT_TIMESTAMP),    
+(1, 2, TRUE, CURRENT_TIMESTAMP),   
+(1, 3, TRUE, CURRENT_TIMESTAMP),  
+(1, 4, TRUE, CURRENT_TIMESTAMP),    
+(2, 1, TRUE, CURRENT_TIMESTAMP),    
+(2, 4, TRUE, CURRENT_TIMESTAMP),    
+(3, 5, TRUE, CURRENT_TIMESTAMP),    
+(3, 6, TRUE, CURRENT_TIMESTAMP),    
+(4, 1, TRUE, CURRENT_TIMESTAMP),   
+(4, 2, TRUE, CURRENT_TIMESTAMP),     
+(5, 3, TRUE, CURRENT_TIMESTAMP),    
+(6, 1, TRUE, CURRENT_TIMESTAMP),    
+(7, 2, TRUE, CURRENT_TIMESTAMP),   
+(8, 3, TRUE, CURRENT_TIMESTAMP),    
+(9, 4, TRUE, CURRENT_TIMESTAMP),    
+(10, 5, TRUE, CURRENT_TIMESTAMP),   
+(11, 6, TRUE, CURRENT_TIMESTAMP),    
+(12, 1, TRUE, CURRENT_TIMESTAMP);    
+

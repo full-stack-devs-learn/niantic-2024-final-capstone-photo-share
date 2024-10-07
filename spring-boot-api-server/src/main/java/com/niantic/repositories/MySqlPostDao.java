@@ -224,6 +224,27 @@ public class MySqlPostDao implements PostDao {
         return false;
     }
 
+    @Override
+    public boolean interactPost(int postId, int userId)
+    {
+        try {
+            String sql = """
+                    INSERT INTO
+                        post_interactions
+                        (post_id, user_id)
+                    VALUES
+                        (?,?)
+                    """;
+
+            jdbcTemplate.update(sql, postId, userId);
+            return true;
+        } catch (Exception e)
+        {
+            //SERVER ERROR
+            return false;
+        }
+    }
+
     public static class PostRowMapper implements RowMapper<Post>
     {
 
