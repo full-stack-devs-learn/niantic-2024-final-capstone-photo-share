@@ -10,6 +10,7 @@ public interface PostDao {
     List<Post> getPostsByAlbumId(Integer albumId);
     Post getPost(int postId);
     Post addPost(Post post);
+    boolean interactPost(int postId, int userId);
     boolean updatePost(int postId, Post post);
     boolean deletePost(int postId);
 }
