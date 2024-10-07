@@ -15,6 +15,12 @@ class AlbumService
         const response = await axios.get(this.baseUrl + `/profile/${profileId}`);
         return response.data;
     }
+
+    async add(album: any)
+    {
+        const response = await axios.post(this.baseUrl, album);
+        return response.data;
+    }
 }
 
 export default new AlbumService();

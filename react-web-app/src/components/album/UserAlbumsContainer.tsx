@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Album } from "../../models/album";
 import albumService from "../../services/album-service";
 import ThumbnailCard from "../profile/ThumbnailCard";
+import AlbumAdd from "./AlbumAddModal";
 
 export default function UserAlbumsContainer({profileId}: {profileId: number})
 {
@@ -14,6 +15,8 @@ export default function UserAlbumsContainer({profileId}: {profileId: number})
     }, [profileId]);
 
     return (
+        <>
+        <AlbumAdd />
         <section className="d-flex">
             {
                 albums.map((album) => (
@@ -24,5 +27,6 @@ export default function UserAlbumsContainer({profileId}: {profileId: number})
                 ))
             }
         </section>
+        </>
     )
 }
