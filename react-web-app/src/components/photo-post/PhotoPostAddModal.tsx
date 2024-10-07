@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import { Button, Modal } from 'react-bootstrap';
 import PhotoUploadButton from '../PhotoUploadButton';
+import photoPostService from '../../services/photo-post-service';
 
 // Cloudinary - Imports
 import { Cloudinary, CloudinaryImage } from '@cloudinary/url-gen';
@@ -13,9 +13,8 @@ import { AdvancedImage } from '@cloudinary/react';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { auto } from '@cloudinary/url-gen/actions/resize';
 
-import photoPostService from '../../services/photo-post-service';
-
 export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated: any}) {
+    // Bootstrap stuff
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
