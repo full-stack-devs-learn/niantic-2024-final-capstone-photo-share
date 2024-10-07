@@ -27,6 +27,12 @@ export default function Header() {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/">Home</NavLink>
                         </li>
+                        {/* Right now it's linking to userId instead of profileId */}
+                        {
+                        isAuthenticated && <>
+                        <li className="nav-item"><NavLink className="nav-link" to={`/profile/${user?.id}`}>Profile</NavLink>
+                        </li></>
+                        }
                     </ul>
                     <ul className="navbar-nav ms-auto" >
 

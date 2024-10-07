@@ -1,23 +1,18 @@
 import { useState, useEffect } from "react";
 
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-
 import { PhotoPost } from "../../models/photo-post";
 import photoPostService from "../../services/photo-post-service";
 import ThumbnailCard from "./ThumbnailCard";
 
-export default function UserPhotosContainer()
+export default function UserPhotosContainer({profileId}: {profileId: number})
 {
     const [posts, setPosts] = useState<PhotoPost[]>([]);
 
-    const { user } = useSelector((state: RootState) => state.authentication);
-
     useEffect(() => {
-        photoPostService.getByUser(user?.id ?? 0).then(data => {
+        photoPostService.getByUser(profileId).then(data => {
             setPosts(data);
         });
-    }, []);
+    }, [profileId]);
 
     return (
         <section>

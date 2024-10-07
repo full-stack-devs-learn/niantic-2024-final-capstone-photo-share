@@ -18,7 +18,7 @@ class PhotoPostService
 
     async getByUser(userId: number)
     {
-        const response = await axios.get(this.baseUrl + `profile/${userId}`);
+        const response = await axios.get(this.baseUrl + `/profile/${userId}`);
         return response.data;
     }
 
