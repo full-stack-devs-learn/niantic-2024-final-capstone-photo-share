@@ -10,14 +10,11 @@ export default function App() {
     return (
         <Router>
         <Header />
-
-        <main className="container mt-4">
             <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             </Routes>
-        </main>
         </Router>
     );
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import demoService from "../../services/demo-service"
 import PostCreationModal from "../photo-post/PhotoPostAddModal";
 import PhotoPostFeed from '../photo-post/PhotoPostFeed'
+import "./home.css"
 
 export default function Home()
 {
@@ -17,6 +18,7 @@ export default function Home()
 
     return (
         <>
+         <main className="container mt-4" id = "home-page-container">
         <h1>
             Home
         </h1>
@@ -29,7 +31,7 @@ export default function Home()
 
         <PostCreationModal onNewPostCreated={(public_id: string) => setNewPost(public_id)}></PostCreationModal>
         <PhotoPostFeed onNewPostCreated={newPost}></PhotoPostFeed>
-
+        </main>  
         </>
     )
 }
