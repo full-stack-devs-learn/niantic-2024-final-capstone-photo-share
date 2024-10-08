@@ -82,13 +82,13 @@ public class MySqlPostDao implements PostDao {
                        p.reactions DESC, p.created_at DESC
                        """;
             }
-            else
-            {
-                filterSql = """
+        }
+        else
+        {
+            filterSql = """
                        ORDER BY
                        p.created_at DESC
                        """;
-            }
         }
 
         String paginationSql = """
