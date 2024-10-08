@@ -106,7 +106,7 @@ public class PostController {
     {
         try
         {
-            var isSuccessful = mySqlPostDao.interactPost(postId, userId);
+            boolean isSuccessful = mySqlPostDao.interactPost(postId, userId);
             if(!isSuccessful){
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             }

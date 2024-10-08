@@ -228,6 +228,38 @@ public class MySqlPostDao implements PostDao {
     public boolean interactPost(int postId, int userId)
     {
         try {
+            String checkSql = """
+                        SELECT
+                            COUNT(*)
+                        FROM
+                            post_interactions
+                        WHERE
+                            post_id = ?
+                        AND
+                            user_id = ?
+                        """;
+
+            var results = jdbcTemplate.query(
+                        checkSql,
+                        new Object[]{postId, userId},
+                        (rs, rowNum) -> rs.getInt(1));
+
+            boolean interactedWith = !results.isEmpty();
+
+            if(interactedWith)
+            {
+                String sql = """
+                    DELETE FROM
+                        post_interactions
+                    WHERE
+                        post_id = ?
+                    AND
+                        user_id = ?
+                    """;
+
+                jdbcTemplate.update(sql, postId, userId);
+                return true;
+            }
             String sql = """
                     INSERT INTO
                         post_interactions
@@ -238,6 +270,7 @@ public class MySqlPostDao implements PostDao {
 
             jdbcTemplate.update(sql, postId, userId);
             return true;
+
         } catch (Exception e)
         {
             //SERVER ERROR
