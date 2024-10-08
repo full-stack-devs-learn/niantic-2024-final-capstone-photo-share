@@ -4,7 +4,7 @@ import { RootState } from "../../store/store";
 import { Button, Modal } from "react-bootstrap"
 import albumService from '../../services/album-service';
 
-export default function AlbumAdd()
+export default function AlbumAddModal()
 {
     // Bootstrap stuff
     const [show, setShow] = useState(false);

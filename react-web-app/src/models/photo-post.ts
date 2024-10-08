@@ -7,4 +7,5 @@ export interface PhotoPost{
     reactions: number
     albumId: number
     createdAt: string
+    hasInteracted: boolean|null
 }

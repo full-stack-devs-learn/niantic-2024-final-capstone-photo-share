@@ -56,6 +56,64 @@ public class MySqlPostDao implements PostDao {
     };
 
     @Override
+    public List<Post> getAllPostWithUsersInteractions(int page, int size, int userId, String filter)
+    {
+        int offset = (page-1) * size;
+
+        String baseSql = """
+                    SELECT
+                        p.*,
+                        CASE WHEN pi.post_id IS NOT NULL THEN 1 ELSE 0 END AS has_interacted
+                    FROM
+                        posts p
+                    LEFT JOIN
+                        post_interactions pi ON p.post_id = pi.post_id
+                    AND
+                        pi.user_id = ?
+                    """;
+
+        String filterSql = "";
+        if(filter != null){
+
+            if(filter.equalsIgnoreCase("trending"))
+            {
+                filterSql = """
+                       ORDER BY
+                       p.reactions DESC, p.created_at DESC
+                       """;
+            }
+        }
+        else
+        {
+            filterSql = """
+                       ORDER BY
+                       p.created_at DESC
+                       """;
+        }
+
+        String paginationSql = """
+                                LIMIT
+                                    ?
+                                OFFSET
+                                    ?
+                                """;
+
+        String finalSql = baseSql + filterSql + paginationSql;
+
+        List<Post> results = jdbcTemplate.query(
+                finalSql,
+                new Object[]{userId, size, offset},
+                new PostRowMapper()
+        );
+
+        List<Post> posts = results.isEmpty()
+                ? null
+                : results;
+
+        return posts;
+    }
+
+    @Override
     public List<Post> getPostsByUserId(int userId)
     {
         String sql = """
@@ -228,6 +286,38 @@ public class MySqlPostDao implements PostDao {
     public boolean interactPost(int postId, int userId)
     {
         try {
+            String checkSql = """
+                        SELECT
+                            COUNT(*)
+                        FROM
+                            post_interactions
+                        WHERE
+                            post_id = ?
+                        AND
+                            user_id = ?
+                        """;
+
+            var results = jdbcTemplate.query(
+                        checkSql,
+                        new Object[]{postId, userId},
+                        (rs, rowNum) -> rs.getInt(1));
+
+            int count = results.getFirst();
+
+            if(count >= 1)
+            {
+                String sql = """
+                    DELETE FROM
+                        post_interactions
+                    WHERE
+                        post_id = ?
+                    AND
+                        user_id = ?
+                    """;
+
+                jdbcTemplate.update(sql, postId, userId);
+                return true;
+            }
             String sql = """
                     INSERT INTO
                         post_interactions
@@ -238,6 +328,7 @@ public class MySqlPostDao implements PostDao {
 
             jdbcTemplate.update(sql, postId, userId);
             return true;
+
         } catch (Exception e)
         {
             //SERVER ERROR
@@ -251,18 +342,26 @@ public class MySqlPostDao implements PostDao {
         @Override
         public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-            Post post = new Post(
-                    rs.getInt("post_id"),
-                    rs.getInt("user_id"),
-                    rs.getString("public_id"),
-                    rs.getString("title"),
-                    rs.getString("captions"),
-                    rs.getInt("reactions"),
-                    (Integer)rs.getObject("album_id"),
-                    rs.getTimestamp("created_at").toLocalDateTime()
-            );
+            Post.PostBuilder postBuilder = Post.builder()
+                    .postId(rs.getInt("post_id"))
+                    .userId(rs.getInt("user_id"))
+                    .publicId(rs.getString("public_id"))
+                    .title(rs.getString("title"))
+                    .captions(rs.getString("captions"))
+                    .reactions(rs.getInt("reactions"))
+                    .albumId((Integer) rs.getObject("album_id"))
+                    .createdAt(rs.getTimestamp("created_at").toLocalDateTime());
 
-            return post;
+            try {
+                int hasInteracted = rs.getInt("has_interacted");
+                postBuilder.hasInteracted(hasInteracted == 1);
+            } catch (SQLException e) {
+                // If the column does not exist, we can simply ignore this
+                // or log it if needed
+                postBuilder.hasInteracted(null); // Set to null or handle as appropriate
+            }
+
+            return postBuilder.build();
         }
     }
 }

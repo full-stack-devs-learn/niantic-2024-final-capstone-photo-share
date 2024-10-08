@@ -22,16 +22,28 @@ class PhotoPostService
         return response.data;
     }
 
+    async getByAlbum(albumId: number)
+    {
+        const response = await axios.get(this.baseUrl + `/album/${albumId}`);
+        return response.data;
+    }
+
     async add(post: any)
     {
         const response = await axios.post(this.baseUrl, post);
         return response.data;
     }
+
+    async update(postId: number, post: any)
+    {
+        await axios.put(this.baseUrl + `/${postId}`, post);
+    }
+
     async interact(postId: number, userId: number|undefined) {
         const newUrl = `${this.baseUrl}/interact?postId=${postId}&userId=${userId}`
         const response = await axios.post(newUrl)
         return response.data;
     }
-    }
+}
 
 export default new PhotoPostService();
