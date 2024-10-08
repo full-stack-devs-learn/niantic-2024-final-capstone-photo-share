@@ -22,6 +22,12 @@ class PhotoPostService
         return response.data;
     }
 
+    async getByAlbum(albumId: number)
+    {
+        const response = await axios.get(this.baseUrl + `/album/${albumId}`);
+        return response.data;
+    }
+
     async add(post: any)
     {
         const response = await axios.post(this.baseUrl, post);
