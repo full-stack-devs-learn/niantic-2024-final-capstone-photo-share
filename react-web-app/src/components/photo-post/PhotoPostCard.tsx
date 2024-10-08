@@ -56,12 +56,22 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
             <Card.Body>
             <Card.Title>{title}</Card.Title>
             <Card.Text>{captions}</Card.Text>
-            <Card.Text>{currentReactions}
-                <FontAwesomeIcon 
+            {isAuthenticated
+            ?   <Card.Text>
+                {currentReactions}
+                    <FontAwesomeIcon 
                     icon={interact ? solidHeart : faHeart} 
                     color={interact ? "red" : "gray"} 
+                    />
+                </Card.Text>
+
+            :   <Card.Text>
+                {reactions}
+                <FontAwesomeIcon 
+                icon={faHeart} 
                 />
-            </Card.Text>
+                </Card.Text>
+            }
             </Card.Body>
         </Card>
     )
