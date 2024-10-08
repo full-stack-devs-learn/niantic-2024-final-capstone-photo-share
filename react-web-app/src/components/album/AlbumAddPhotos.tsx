@@ -7,22 +7,42 @@ import { PhotoPost } from "../../models/photo-post";
 import SmallThumbnail from "./SmallThumbnail";
 import { Button, Modal } from "react-bootstrap";
 
-export default function AlbumAddPhotos({albumId}: {albumId: number}) {
+export default function AlbumAddPhotos({albumId, onAlbumUpdated}: {albumId: number, onAlbumUpdated: any}) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     const [posts, setPosts] = useState<PhotoPost[]>([]);
-    const [checked, setChecked] = useState<string[]>([]);
+
+    const [checked, setChecked] = useState<number[]>([]);
     const { user } = useSelector((state: RootState) => state.authentication);
 
-    function submitHandler(event: any)
+    async function submitHandler(event: any)
     {
         event.preventDefault();
+
+        checked.forEach(checkedItem => {
+            updatePost(checkedItem)
+        })
+
+        onAlbumUpdated(checked[0]);
+    }
+
+    async function updatePost(checkedItem: number)
+    {
+        await photoPostService.getById(checkedItem).then(data => {
+            const updatedPost = {
+                publicId: data.publicId,
+                title: data.title,
+                captions: data.captions,
+                albumId: albumId
+            }
+            photoPostService.update(data.postId, updatedPost);
+        }).then(handleClose);
     }
 
     const handleCheck = (event: any) => {
-        let updatedList: string[] = [...checked];
+        let updatedList: number[] = [...checked];
         if(event.target.checked) {
             updatedList = [...checked, event.target.value];
         }
@@ -41,12 +61,12 @@ export default function AlbumAddPhotos({albumId}: {albumId: number}) {
     return (
         <>
         <Button variant="primary" onClick={handleShow}>
-            Add photos to album
+        Select photos for album
         </Button>
 
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-            <Modal.Title>Create a new post</Modal.Title>
+            <Modal.Title>Select photos for album</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
@@ -63,7 +83,6 @@ export default function AlbumAddPhotos({albumId}: {albumId: number}) {
                     }
                     <Button type="submit">Add photos to album</Button>
                 </form>
-                <p>{checked}</p>
             </Modal.Body>
         </Modal>
         </>

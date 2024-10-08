@@ -13,6 +13,7 @@ export default function AlbumDetails()
     const params = useParams();
     const albumId = params?.albumId ?? 0;
 
+    const [refreshPage, setRefreshPage] = useState<number>(0);
     const [posts, setPosts] = useState<PhotoPost[]>([]);
     const [albumData, setAlbumData] = useState<Album>({albumId: 0, userId: 0, title: "", description: "", createdAt: ""});
 
@@ -26,18 +27,18 @@ export default function AlbumDetails()
         photoPostService.getByAlbum(+albumId).then(data => {
             setPosts(data);
         })
-    }, []);
+    }, [refreshPage]);
 
     useEffect(() => {
         albumService.getById(+albumId).then(data => {
             setAlbumData(data);
         })
-    })
+    }, []);
 
     return (
-        <section className="container mt-4">
+        <section className="container mt-4" onClick={() => setRefreshPage(refreshPage + 1)}>
             <Link to={`/profile/${albumData.userId}`}><p>Go back to all albums</p></Link>
-            <AlbumAddPhotos albumId={+albumId}/>
+            <AlbumAddPhotos albumId={+albumId} onAlbumUpdated={(postId: number) => setRefreshPage(postId)}/>
             <Carousel activeIndex={index} onSelect={handleSelect} style={{ width: '500px' }}>
             {
                 posts.map((post) => (
