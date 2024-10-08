@@ -84,6 +84,25 @@ CREATE TABLE post_interactions (
     UNIQUE (post_id, user_id)
 );
 
+-- SCHEDULER --
+SET GLOBAL event_scheduler = ON;
+DROP EVENT IF EXISTS update_likes_event;
+
+DELIMITER //
+CREATE EVENT update_likes_event
+ON SCHEDULE EVERY 10 SECOND
+DO
+BEGIN
+	UPDATE posts p
+	SET reactions = (
+		SELECT COUNT(*)
+		FROM post_interactions pi
+		WHERE pi.post_id = p.post_id AND pi.interacted = TRUE
+	);
+END //
+
+DELIMITER ;
+
 
 -- DATA --
 INSERT INTO profiles(user_id, profile_img, bio)

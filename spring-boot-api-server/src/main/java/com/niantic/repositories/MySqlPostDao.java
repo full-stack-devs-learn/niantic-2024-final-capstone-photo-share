@@ -56,11 +56,11 @@ public class MySqlPostDao implements PostDao {
     };
 
     @Override
-    public List<Post> getAllPostWithUsersInteractions(int page, int size, int userId)
+    public List<Post> getAllPostWithUsersInteractions(int page, int size, int userId, String filter)
     {
         int offset = (page-1) * size;
 
-        String sql = """
+        String baseSql = """
                     SELECT
                         p.*,
                         CASE WHEN pi.post_id IS NOT NULL THEN 1 ELSE 0 END AS has_interacted
@@ -70,16 +70,38 @@ public class MySqlPostDao implements PostDao {
                         post_interactions pi ON p.post_id = pi.post_id
                     AND
                         pi.user_id = ?
-                    ORDER BY
-                        p.created_at DESC
-                    LIMIT
-                        ?
-                    OFFSET
-                        ?
                     """;
 
+        String filterSql = "";
+        if(filter != null){
+
+            if(filter.equalsIgnoreCase("trending"))
+            {
+                filterSql = """
+                       ORDER BY
+                       p.reactions DESC, p.created_at DESC
+                       """;
+            }
+            else
+            {
+                filterSql = """
+                       ORDER BY
+                       p.created_at DESC
+                       """;
+            }
+        }
+
+        String paginationSql = """
+                                LIMIT
+                                    ?
+                                OFFSET
+                                    ?
+                                """;
+
+        String finalSql = baseSql + filterSql + paginationSql;
+
         List<Post> results = jdbcTemplate.query(
-                sql,
+                finalSql,
                 new Object[]{userId, size, offset},
                 new PostRowMapper()
         );
@@ -89,7 +111,6 @@ public class MySqlPostDao implements PostDao {
                 : results;
 
         return posts;
-
     }
 
     @Override

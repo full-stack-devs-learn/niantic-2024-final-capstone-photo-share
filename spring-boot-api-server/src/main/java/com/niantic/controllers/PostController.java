@@ -23,7 +23,9 @@ public class PostController {
     @GetMapping(params = {"page","size"})
     public ResponseEntity<?> getAllPosts(@RequestParam int page,
                                          @RequestParam int size,
-                                         @RequestParam(required = false) Integer userId)
+                                         @RequestParam(required = false) Integer userId,
+                                         @RequestParam(required = false) String filter)
+
     {
         try
         {
@@ -31,7 +33,7 @@ public class PostController {
 
             if(userId != null)
             {
-                results = mySqlPostDao.getAllPostWithUsersInteractions(page, size, userId);
+                results = mySqlPostDao.getAllPostWithUsersInteractions(page, size, userId, filter);
             } else {
                 results = mySqlPostDao.getAllPosts(page, size);
             }
