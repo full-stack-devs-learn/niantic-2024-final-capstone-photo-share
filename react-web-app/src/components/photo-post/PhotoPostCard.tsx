@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as solidHeart }  from "@fortawesome/free-solid-svg-icons";
 import photoPostService from "../../services/photo-post-service";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { useState } from "react";
 
 interface PhotoPostProps {
     userId: number;
@@ -26,6 +26,9 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
     const cld = new Cloudinary({ cloud: { cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME } });
     const { user, isAuthenticated } = useSelector((state: RootState) => state.authentication);
 
+    const [interact, setInteract] = useState<boolean|null>(hasInteracted)
+    const [currentReactions, setCurrentReactions] = useState<number>(reactions)
+
     const img = cld
     .image(publicId)
     .format("auto")
@@ -36,6 +39,12 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
 
      if(isAuthenticated){
             photoPostService.interact(postId, user?.id)
+            setInteract(!interact)
+            if(interact){
+                setCurrentReactions(currentReactions-1)
+            } else {
+                setCurrentReactions(currentReactions+1)
+            }
         }
     }
     
@@ -47,10 +56,10 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
             <Card.Body>
             <Card.Title>{title}</Card.Title>
             <Card.Text>{captions}</Card.Text>
-            <Card.Text>{reactions}
+            <Card.Text>{currentReactions}
                 <FontAwesomeIcon 
-                    icon={hasInteracted ? solidHeart : faHeart} 
-                    color={hasInteracted ? "red" : "gray"} 
+                    icon={interact ? solidHeart : faHeart} 
+                    color={interact ? "red" : "gray"} 
                 />
             </Card.Text>
             </Card.Body>
