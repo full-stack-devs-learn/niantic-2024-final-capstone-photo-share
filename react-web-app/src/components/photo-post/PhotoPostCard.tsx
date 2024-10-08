@@ -10,6 +10,7 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as solidHeart }  from "@fortawesome/free-solid-svg-icons";
 import photoPostService from "../../services/photo-post-service";
 import { useState } from "react";
+import "./PhotoPostFeed.css"
 
 interface PhotoPostProps {
     userId: number;
@@ -28,6 +29,7 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
 
     const [interact, setInteract] = useState<boolean|null>(hasInteracted)
     const [currentReactions, setCurrentReactions] = useState<number>(reactions)
+    const [showHeartNoti, setShowHeartNoti] = useState<boolean>(false)
 
     const img = cld
     .image(publicId)
@@ -40,10 +42,12 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
      if(isAuthenticated){
             photoPostService.interact(postId, user?.id)
             setInteract(!interact)
-            if(interact){
-                setCurrentReactions(currentReactions-1)
-            } else {
+            if(!interact){
                 setCurrentReactions(currentReactions+1)
+                setShowHeartNoti(true);
+                setTimeout(() => { setShowHeartNoti(false) }, 2000);
+            } else {
+                setCurrentReactions(currentReactions-1)
             }
         }
     }
@@ -52,7 +56,17 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
     return (
         <Card style={{ width: '18rem' }}>
             <Card.Header>{userId}</Card.Header>
-            <AdvancedImage onClick={likeHandler} cldImg={img} />
+            <div id="img-wrapper">
+                <AdvancedImage 
+                    onClick={likeHandler}
+                    cldImg={img} 
+                    />
+                {showHeartNoti && (
+                <div className="heart-animation" onAnimationEnd={() => setShowHeartNoti(false)}>
+                    <FontAwesomeIcon icon={solidHeart} color="red" size="2x" />
+                </div>
+                )}
+            </div>
             <Card.Body>
             <Card.Title>{title}</Card.Title>
             <Card.Text>{captions}</Card.Text>
@@ -61,7 +75,7 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
                 {currentReactions}
                     <FontAwesomeIcon 
                     icon={interact ? solidHeart : faHeart} 
-                    color={interact ? "red" : "gray"} 
+                    color={interact ? "red" : "black"} 
                     />
                 </Card.Text>
 
