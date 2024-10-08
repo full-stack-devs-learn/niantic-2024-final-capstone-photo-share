@@ -38,6 +38,12 @@ class PhotoPostService
     {
         await axios.put(this.baseUrl + `/${postId}`, post);
     }
+
+    async interact(postId: number, userId: number|undefined) {
+        const newUrl = `${this.baseUrl}/interact?postId=${postId}&userId=${userId}`
+        const response = await axios.post(newUrl)
+        return response.data;
+    }
 }
 
 export default new PhotoPostService();

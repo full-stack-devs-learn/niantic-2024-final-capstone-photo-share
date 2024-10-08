@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/posts")
@@ -19,11 +21,22 @@ public class PostController {
     private MySqlAlbumDao mySqlAlbumDao;
 
     @GetMapping(params = {"page","size"})
-    public ResponseEntity<?> getAllPosts(@RequestParam int page, int size)
+    public ResponseEntity<?> getAllPosts(@RequestParam int page,
+                                         @RequestParam int size,
+                                         @RequestParam(required = false) Integer userId,
+                                         @RequestParam(required = false) String filter)
+
     {
         try
         {
-            var results = mySqlPostDao.getAllPosts(page, size);
+            List<Post> results;
+
+            if(userId != null)
+            {
+                results = mySqlPostDao.getAllPostWithUsersInteractions(page, size, userId, filter);
+            } else {
+                results = mySqlPostDao.getAllPosts(page, size);
+            }
 
             if(results.isEmpty())
             {
@@ -106,7 +119,7 @@ public class PostController {
     {
         try
         {
-            var isSuccessful = mySqlPostDao.interactPost(postId, userId);
+            boolean isSuccessful = mySqlPostDao.interactPost(postId, userId);
             if(!isSuccessful){
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             }
