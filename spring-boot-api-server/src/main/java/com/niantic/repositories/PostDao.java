@@ -6,6 +6,7 @@ import java.util.List;
 public interface PostDao {
 
     List<Post> getAllPosts(int page, int size);
+    List<Post> getAllPostWithUsersInteractions(int page, int size, int userId);
     List<Post> getPostsByUserId(int userId);
     List<Post> getPostsByAlbumId(Integer albumId);
     Post getPost(int postId);

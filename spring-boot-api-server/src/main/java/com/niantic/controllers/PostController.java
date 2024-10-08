@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/posts")
@@ -19,11 +21,20 @@ public class PostController {
     private MySqlAlbumDao mySqlAlbumDao;
 
     @GetMapping(params = {"page","size"})
-    public ResponseEntity<?> getAllPosts(@RequestParam int page, int size)
+    public ResponseEntity<?> getAllPosts(@RequestParam int page,
+                                         @RequestParam int size,
+                                         @RequestParam(required = false) Integer userId)
     {
         try
         {
-            var results = mySqlPostDao.getAllPosts(page, size);
+            List<Post> results;
+
+            if(userId != null)
+            {
+                results = mySqlPostDao.getAllPostWithUsersInteractions(page, size, userId);
+            } else {
+                results = mySqlPostDao.getAllPosts(page, size);
+            }
 
             if(results.isEmpty())
             {
