@@ -11,7 +11,7 @@ export default function AlbumCarouselImage({publicId}: {publicId: string})
     .image(publicId)
     .format("auto")
     .quality("auto")
-    .resize(auto().gravity(autoGravity()).width(300).height(300));
+    .resize(auto().gravity(autoGravity()).width(500).height(500));
 
     return (
         <AdvancedImage cldImg={img} />

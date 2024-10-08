@@ -13,11 +13,23 @@ export default function AlbumAddPhotos({albumId}: {albumId: number}) {
     const handleShow = () => setShow(true);
 
     const [posts, setPosts] = useState<PhotoPost[]>([]);
+    const [checked, setChecked] = useState<string[]>([]);
     const { user } = useSelector((state: RootState) => state.authentication);
 
     function submitHandler(event: any)
     {
         event.preventDefault();
+    }
+
+    const handleCheck = (event: any) => {
+        let updatedList: string[] = [...checked];
+        if(event.target.checked) {
+            updatedList = [...checked, event.target.value];
+        }
+        else {
+            updatedList.splice(checked.indexOf(event.target.value), 1);
+        }
+        setChecked(updatedList);
     }
 
     useEffect(() => {
@@ -42,7 +54,7 @@ export default function AlbumAddPhotos({albumId}: {albumId: number}) {
                     {
                         posts.map((post) => (
                             <>
-                            <input type="checkbox" id={`checkbox-${post.postId}`}/>
+                            <input type="checkbox" value={post.postId} id={`checkbox-${post.postId}`} onChange={handleCheck}/>
                             <label htmlFor={`checkbox-${post.postId}`}>
                                 <SmallThumbnail publicId={post.publicId} />
                             </label>
@@ -51,6 +63,7 @@ export default function AlbumAddPhotos({albumId}: {albumId: number}) {
                     }
                     <Button type="submit">Add photos to album</Button>
                 </form>
+                <p>{checked}</p>
             </Modal.Body>
         </Modal>
         </>
