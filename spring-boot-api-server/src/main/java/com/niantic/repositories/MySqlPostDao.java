@@ -244,9 +244,9 @@ public class MySqlPostDao implements PostDao {
                         new Object[]{postId, userId},
                         (rs, rowNum) -> rs.getInt(1));
 
-            boolean interactedWith = !results.isEmpty();
+            int count = results.getFirst();
 
-            if(interactedWith)
+            if(count >= 1)
             {
                 String sql = """
                     DELETE FROM
