@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage } from '@cloudinary/react';
@@ -34,6 +35,15 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
     const [showHeartNoti, setShowHeartNoti] = useState<boolean>(false)
     const [currentUser, setCurrentUser] = useState<any>()
 
+    useEffect(()=>{
+        profileService.getById(userId).then(data =>{  
+            setCurrentUser(data)
+            console.log(data)
+        })
+        if(currentUser != null){
+        }
+    },[]) 
+
     const img = cld
     .image(publicId)
     .format("auto")
@@ -41,11 +51,6 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
     .resize(auto().gravity(autoGravity()).width(300).height(300));
 
 
-    useEffect(()=>{
-    profileService.getById(userId).then(data =>{  
-   setCurrentUser(data)
-   })
-    },[]) 
     async function likeHandler() {
 
      if(isAuthenticated){
@@ -63,8 +68,13 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
     
  
     return (
-        <Card style={{ width: '18rem' }}>
-            <Card.Header>{currentUser != null ? currentUser.userName : undefined}</Card.Header>
+        <Card id="card-post-container" style={{ width: '18rem' }}>
+            <Link to={`/profile/${userId}`}>
+                <Card.Header>
+                    <div className="profile-img"></div>
+                    {currentUser != null ? currentUser.userName : undefined}
+                </Card.Header>
+            </Link>
             <div id="img-wrapper">
                 <AdvancedImage 
                     onClick={likeHandler}
