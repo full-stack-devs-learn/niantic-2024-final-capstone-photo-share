@@ -8,7 +8,14 @@
     place-items: center;
     
 }
-.header-right-section li > h5
+#right-child-1 h5
 {
-    margin: 0;
+    margin: 0 1rem;
+}
+#right-child-2
+{
+    font-weight: 500;
+}
+#right-child-2 > * {
+    color: black;
 }

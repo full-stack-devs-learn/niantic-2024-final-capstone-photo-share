@@ -43,10 +43,10 @@ export default function Header() {
                                     <NavLink className="nav-link" to="/login">Login</NavLink>
                                 </li>
                             :   <>
-                                    <li className="nav-item">
-                                        <h5 className="nav-link">Welcome, {user?.username}</h5>
+                                    <li className="nav-item" id="right-child-1">
+                                        <h5 className="nav-link">Hi, {user?.username}!</h5>
                                     </li>
-                                    <li className="nav-item">
+                                    <li className="nav-item" id="right-child-2">
                                         <button className="nav-link" onClick={handleLogout} >Logout</button>
                                     </li>
                                 </>
