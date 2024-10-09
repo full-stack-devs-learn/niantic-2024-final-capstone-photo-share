@@ -54,3 +54,28 @@
         opacity: 0;
     }
 }
+.card-body{
+    display: flex;
+    flex-direction: column;
+}
+.card-body p{
+    
+}
+.card-title{
+    text-align: left;
+}
+.card-text{
+    text-align: left;
+    font-weight: 300;
+}
+.card-reactions{
+    align-self: flex-end;
+}
+.card-reaction-wrapper{
+    display: flex;
+    place-items: center;
+}
+.card-reaction-wrapper > p {
+    margin: 0 5px 0 0;
+    font-weight: 300;
+}

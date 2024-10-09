@@ -86,23 +86,32 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
                 </div>
                 )}
             </div>
-            <Card.Body>
+            <Card.Body className="card-body">
             <Card.Title>{title}</Card.Title>
             <Card.Text>{captions}</Card.Text>
             {isAuthenticated
-            ?   <Card.Text>
-                {currentReactions}
+            ?   <Card.Text className="card-reactions">
+                    <div className="card-reaction-wrapper">
+                    <p>{currentReactions} { currentReactions == 0
+                                            ? ""
+                                            : currentReactions > 1 ? "likes" : "like" }</p>
                     <FontAwesomeIcon 
                     icon={interact ? solidHeart : faHeart} 
                     color={interact ? "red" : "black"} 
                     />
+                    </div>
                 </Card.Text>
 
-            :   <Card.Text>
-                {reactions}
+            :   <Card.Text className="card-reactions">
+                <div className="card-reaction-wrapper">
+                <p>{reactions} { reactions == 0
+                                            ? ""
+                                            : reactions > 1 ? "likes" : "like" }</p>
+    
                 <FontAwesomeIcon 
                 icon={faHeart} 
                 />
+                </div>
                 </Card.Text>
             }
             </Card.Body>
