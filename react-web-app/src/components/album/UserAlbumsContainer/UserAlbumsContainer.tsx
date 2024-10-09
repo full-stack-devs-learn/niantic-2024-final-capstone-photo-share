@@ -11,16 +11,22 @@ import { Link } from "react-router-dom";
 export default function UserAlbumsContainer({profileId}: {profileId: number})
 {
     const [albums, setAlbums] = useState<Album[]>([]);
+    const [refreshPage, setRefreshPage] = useState<number>(0);
 
     useEffect(() => {
         albumService.getByProfile(profileId).then(data => {
             setAlbums(data);
         });
-    }, [profileId]);
+    }, [profileId, refreshPage]);
+
+    async function albumAdded(albumId: number)
+    {
+        setRefreshPage(albumId)
+    }
 
     return (
         <>
-        <AlbumAddModal />
+        <AlbumAddModal onAlbumAdded={albumAdded}/>
         <section id="album-container" className="mt-5">
             {
                 albums.map((album) => (

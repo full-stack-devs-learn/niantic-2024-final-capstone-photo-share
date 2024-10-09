@@ -4,7 +4,7 @@ import { RootState } from "../../store/store";
 import { Button, Modal } from "react-bootstrap"
 import albumService from '../../services/album-service';
 
-export default function AlbumAddModal()
+export default function AlbumAddModal({onAlbumAdded}: {onAlbumAdded: any})
 {
     // Bootstrap stuff
     const [show, setShow] = useState(false);
@@ -26,7 +26,9 @@ export default function AlbumAddModal()
             description: description
         }
 
-        await albumService.add(newAlbum).then(handleClose);
+        const response = await albumService.add(newAlbum)
+        onAlbumAdded(response.albumId);
+        setShow(false);
     }
 
     return (
