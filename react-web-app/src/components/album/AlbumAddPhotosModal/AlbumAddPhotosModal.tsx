@@ -23,22 +23,25 @@ export default function AlbumAddPhotosModal({albumId, onAlbumUpdated}: {albumId:
     {
         event.preventDefault();
 
-        checked.forEach(async checkedItem => {
+        for(let checkedItem of checked)
+        {
             await updatePost(checkedItem)
-        })
+        }
+
+        setShow(false);
+        onAlbumUpdated(checked[0]);
     }
 
     async function updatePost(checkedItem: number)
     {
-        await photoPostService.getById(checkedItem).then(data => {
-            const updatedPost = {
-                publicId: data.publicId,
-                title: data.title,
-                captions: data.captions,
-                albumId: albumId
-            }
-            photoPostService.update(data.postId, updatedPost);
-        }).then(handleClose, onAlbumUpdated(checked[0]))
+        const data = await photoPostService.getById(checkedItem)
+        const updatedPost = {
+            publicId: data.publicId,
+            title: data.title,
+            captions: data.captions,
+            albumId: albumId
+        }
+        await photoPostService.update(data.postId, updatedPost);
     }
 
     const handleCheck = (event: any) => {
@@ -60,7 +63,7 @@ export default function AlbumAddPhotosModal({albumId, onAlbumUpdated}: {albumId:
 
     return (
         <>
-        <Button className="mt-2" variant="light" onClick={handleShow}>
+        <Button variant="light" onClick={handleShow}>
         Edit photos for album
         </Button>
 
@@ -70,7 +73,8 @@ export default function AlbumAddPhotosModal({albumId, onAlbumUpdated}: {albumId:
             </Modal.Header>
 
             <Modal.Body>
-                <form onSubmit={submitHandler} className="formContainer">
+                <form onSubmit={submitHandler}>
+                    <div className="formContainer">
                     {
                         posts.map((post) => (
                             <div key={post.postId}>
@@ -81,9 +85,10 @@ export default function AlbumAddPhotosModal({albumId, onAlbumUpdated}: {albumId:
                             </div>
                         ))
                     }
+                    </div>
+                    <p className="mt-4">{checked.length} selected</p>
+                    <Button type="submit">Add photos to album</Button>
                 </form>
-                <p className="mt-4">{checked.length} selected</p>
-                <Button type="submit">Add photos to album</Button>
             </Modal.Body>
         </Modal>
         </>
