@@ -64,7 +64,7 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
  
     return (
         <Card style={{ width: '18rem' }}>
-            <Card.Header>{currentUser.userName}</Card.Header>
+            <Card.Header>{currentUser != null ? currentUser.userName : undefined}</Card.Header>
             <div id="img-wrapper">
                 <AdvancedImage 
                     onClick={likeHandler}
