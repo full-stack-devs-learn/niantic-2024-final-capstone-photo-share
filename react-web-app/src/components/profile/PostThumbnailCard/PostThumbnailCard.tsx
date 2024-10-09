@@ -1,3 +1,5 @@
+import "./PostThumbnailCard.css"
+
 import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage } from '@cloudinary/react';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
@@ -15,9 +17,9 @@ export default function ThumbnailCard({title, publicId}: {title: string, publicI
     .resize(auto().gravity(autoGravity()).width(300).height(300));
 
     return (
-        <Card style={{ width: '18rem' }}>
-            <AdvancedImage cldImg={img} />
-            <p>{title}</p>
+        <Card className="post-card" style={{ width: '18rem' }}>
+            <AdvancedImage className="thumbnail-image" cldImg={img} />
+            <Card.Body>{title}</Card.Body>
         </Card>
     )
 }

@@ -1,8 +1,10 @@
+import "./UserPostsContainer.css"
+
 import { useState, useEffect } from "react";
 
-import { PhotoPost } from "../../models/photo-post";
-import photoPostService from "../../services/photo-post-service";
-import PostThumbnailCard from "./PostThumbnailCard";
+import { PhotoPost } from "../../../models/photo-post";
+import photoPostService from "../../../services/photo-post-service";
+import PostThumbnailCard from "../PostThumbnailCard/PostThumbnailCard";
 
 export default function UserPhotosContainer({profileId}: {profileId: number})
 {
@@ -16,7 +18,7 @@ export default function UserPhotosContainer({profileId}: {profileId: number})
 
     return (
         // Perhaps grid would be easier with 3 fr width and some gap
-        <section className="d-flex">
+        <section id="posts-container" className="mt-5">
             {
                 posts.map((post) => (
                     <PostThumbnailCard key={post.postId}

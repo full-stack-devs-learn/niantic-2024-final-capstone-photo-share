@@ -1,4 +1,4 @@
-import UserPhotosContainer from "./UserPhotosContainer";
+import UserPhotosContainer from "./UserPostsContainer/UserPostsContainer";
 import UserProfileContainer from "./UserProfileContainer/UserProfileContainer";
 
 import { useParams, Link } from "react-router-dom";

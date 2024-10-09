@@ -1,0 +1,28 @@
+.post-card
+{
+    --bs-card-border-radius: 30px !important;
+    background: none;
+    border: none;
+    box-shadow: 8px 8px 18px 12px rgb(237, 239, 241);
+    --bs-card-border-width: none !important;
+    --bs-card-cap-bg: none;
+    font-weight: 500;
+    color: #4e4e4e !important;
+}
+
+.card-body
+{
+    padding-bottom: 20px !important;
+    text-align: center;
+}
+
+.thumbnail-image
+{
+    border-radius: 20px 20px 0 0;
+    transition: all 0.5s ease;
+}
+
+.thumbnail-image:hover
+{
+    opacity: 0.8;
+}
