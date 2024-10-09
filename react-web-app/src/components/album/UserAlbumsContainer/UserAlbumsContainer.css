@@ -2,5 +2,10 @@
 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 115px;
+    grid-template-rows: 380px;
+}
+
+.link
+{
+    text-decoration: none;
 }
