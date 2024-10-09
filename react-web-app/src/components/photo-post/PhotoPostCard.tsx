@@ -9,8 +9,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as solidHeart }  from "@fortawesome/free-solid-svg-icons";
 import photoPostService from "../../services/photo-post-service";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./PhotoPostFeed.css"
+import profileService from "../../services/profile-service";
 
 interface PhotoPostProps {
     userId: number;
@@ -22,6 +23,7 @@ interface PhotoPostProps {
     hasInteracted: boolean|null;
 }
 
+
 export default function PhotoPostCard({userId, publicId, title, captions, reactions, postId, hasInteracted}: PhotoPostProps)
 {
     const cld = new Cloudinary({ cloud: { cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME } });
@@ -30,6 +32,7 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
     const [interact, setInteract] = useState<boolean|null>(hasInteracted)
     const [currentReactions, setCurrentReactions] = useState<number>(reactions)
     const [showHeartNoti, setShowHeartNoti] = useState<boolean>(false)
+    const [currentUser, setCurrentUser] = useState<any>()
 
     const img = cld
     .image(publicId)
@@ -37,6 +40,12 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
     .quality("auto")
     .resize(auto().gravity(autoGravity()).width(300).height(300));
 
+
+    useEffect(()=>{
+    profileService.getById(userId).then(data =>{  
+   setCurrentUser(data)
+   })
+    },[]) 
     async function likeHandler() {
 
      if(isAuthenticated){
@@ -55,7 +64,7 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
  
     return (
         <Card style={{ width: '18rem' }}>
-            <Card.Header>{userId}</Card.Header>
+            <Card.Header>{currentUser.userName}</Card.Header>
             <div id="img-wrapper">
                 <AdvancedImage 
                     onClick={likeHandler}
@@ -89,4 +98,7 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
             </Card.Body>
         </Card>
     )
+
 }
+
+
