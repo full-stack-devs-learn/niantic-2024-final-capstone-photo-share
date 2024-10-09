@@ -84,6 +84,16 @@ CREATE TABLE post_interactions (
     UNIQUE (post_id, user_id)
 );
 
+CREATE TABLE comments (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    content TEXT NOT NULL,
+    post_id INT,
+    user_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
 -- SCHEDULER --
 SET GLOBAL event_scheduler = ON;
 DROP EVENT IF EXISTS update_likes_event;
