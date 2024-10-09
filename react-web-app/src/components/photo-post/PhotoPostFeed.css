@@ -1,3 +1,19 @@
+.card a {
+    text-decoration: none;
+    color: black;
+}
+.card-header{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.profile-img{
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background-color: #ECECEC;
+}
 #img-wrapper{
     overflow: hidden;
     display: flex;

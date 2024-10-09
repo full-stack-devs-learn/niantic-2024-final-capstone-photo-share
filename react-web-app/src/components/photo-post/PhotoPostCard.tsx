@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage } from '@cloudinary/react';
@@ -64,7 +65,12 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
  
     return (
         <Card style={{ width: '18rem' }}>
-            <Card.Header>{currentUser != null ? currentUser.userName : undefined}</Card.Header>
+            <Link to={`/profile/${userId}`}>
+                <Card.Header>
+                    <div className="profile-img"></div>
+                    {currentUser != null ? currentUser.userName : undefined}
+                </Card.Header>
+            </Link>
             <div id="img-wrapper">
                 <AdvancedImage 
                     onClick={likeHandler}
