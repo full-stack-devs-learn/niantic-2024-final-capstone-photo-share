@@ -13,6 +13,8 @@ import photoPostService from "../../services/photo-post-service";
 import { useEffect, useState } from "react";
 import "./PhotoPostFeed.css"
 import profileService from "../../services/profile-service";
+import { background } from "@cloudinary/url-gen/qualifiers/focusOn";
+import { BackgroundColor } from "@cloudinary/url-gen/actions/background/actions/BackgroundColor";
 
 interface PhotoPostProps {
     userId: number;
@@ -34,6 +36,16 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
     const [currentReactions, setCurrentReactions] = useState<number>(reactions)
     const [showHeartNoti, setShowHeartNoti] = useState<boolean>(false)
     const [currentUser, setCurrentUser] = useState<any>()
+    const [profilePic, setProfilePic] = useState<any>()
+
+    useEffect(()=>{
+        profileService.getById(userId).then(data =>{  
+            setCurrentUser(data)
+            console.log(data)
+        })
+        if(currentUser != null){
+        }
+    },[]) 
 
     const img = cld
     .image(publicId)
@@ -42,11 +54,6 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
     .resize(auto().gravity(autoGravity()).width(300).height(300));
 
 
-    useEffect(()=>{
-    profileService.getById(userId).then(data =>{  
-   setCurrentUser(data)
-   })
-    },[]) 
     async function likeHandler() {
 
      if(isAuthenticated){
