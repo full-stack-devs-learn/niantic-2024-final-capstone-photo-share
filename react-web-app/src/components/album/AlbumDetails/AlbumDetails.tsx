@@ -39,7 +39,7 @@ export default function AlbumDetails()
         <section className="container mt-4">
             <Link className="breadcrumb" to={`/profile/${albumData.userId}`}>&lt; Go back to all albums</Link>
             <Card style={{ width: '500px' }} className="mt-5 mx-auto" id="custom-card">
-                <Card.Header>{albumData.title}</Card.Header>
+                <Card.Header className="details-card-header">{albumData.title}</Card.Header>
                 <Carousel className="mx-auto" interval={null} style={{ width: '500px' }}>
                 {
                     posts.map((post) => (
@@ -48,7 +48,7 @@ export default function AlbumDetails()
                 }
                 </Carousel>
 
-                <Card.Body>
+                <Card.Body className="details-card-body">
                     <p>{albumData.description}</p>
                     <AlbumAddPhotosModal albumId={+albumId} onAlbumUpdated={albumUpdated}/>
                 </Card.Body>

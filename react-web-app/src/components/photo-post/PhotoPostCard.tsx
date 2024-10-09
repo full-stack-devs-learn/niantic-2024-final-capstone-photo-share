@@ -70,7 +70,7 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
     return (
         <Card id="card-post-container" style={{ width: '18rem' }}>
             <Link to={`/profile/${userId}`}>
-                <Card.Header>
+                <Card.Header className="post-card-header">
                     <div className="profile-img"></div>
                     {currentUser != null ? currentUser.userName : undefined}
                 </Card.Header>
@@ -86,7 +86,7 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
                 </div>
                 )}
             </div>
-            <Card.Body className="card-body">
+            <Card.Body className="post-card-body">
             <Card.Title>{title}</Card.Title>
             <Card.Text>{captions}</Card.Text>
             {isAuthenticated

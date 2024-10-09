@@ -10,7 +10,7 @@
     text-decoration: none;
     color: black;
 }
-.card-header{
+.post-card-header{
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -54,11 +54,11 @@
         opacity: 0;
     }
 }
-.card-body{
+.post-card-body{
     display: flex;
     flex-direction: column;
 }
-.card-body p{
+.post-card-body p{
     
 }
 .card-title{

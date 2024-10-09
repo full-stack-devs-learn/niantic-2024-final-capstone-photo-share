@@ -36,7 +36,7 @@ export default function AlbumThumbnailCard({title, albumId}: {title: string, alb
     return (
         <Card className="album-card">
             <AdvancedImage className="thumbnail-image" cldImg={img} />
-            <Card.Body>{title}</Card.Body>
+            <Card.Body className="album-thumbnail-card-body">{title}</Card.Body>
         </Card>
     )
 }

@@ -13,6 +13,13 @@
     box-shadow: 10px 10px 20px 15px rgb(237, 239, 241);
     --bs-card-border-width: none;
     --bs-card-cap-bg: none;
-    --bs-card-cap-padding-y: 0.75rem;
+    --bs-card-cap-padding-y: 1.1rem;
     --bs-card-cap-padding-x: 1.5rem;
+}
+
+.details-card-header
+{
+    font-weight: 600;
+    font-size: 1.2em;
+    text-align: center;
 }

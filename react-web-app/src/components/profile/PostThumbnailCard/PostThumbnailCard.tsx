@@ -17,9 +17,9 @@ export default function ThumbnailCard({title, publicId}: {title: string, publicI
     .resize(auto().gravity(autoGravity()).width(300).height(300));
 
     return (
-        <Card className="post-card" style={{ width: '18rem' }}>
+        <Card className="post-card">
             <AdvancedImage className="thumbnail-image" cldImg={img} />
-            <Card.Body>{title}</Card.Body>
+            <Card.Body className="post-card-body">{title}</Card.Body>
         </Card>
     )
 }
