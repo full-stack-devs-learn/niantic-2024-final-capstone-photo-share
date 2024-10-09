@@ -1,0 +1,25 @@
+#root{
+    background-color: #ECECEC;
+}
+.header-right-section
+{
+
+}
+.header-right-section li
+{
+    display: flex;
+    place-items: center;
+    
+}
+#right-child-1 h5
+{
+    margin: 0 1rem;
+    cursor: default
+}
+#right-child-2
+{
+    font-weight: 500;
+}
+#right-child-2 > * {
+    color: black;
+}

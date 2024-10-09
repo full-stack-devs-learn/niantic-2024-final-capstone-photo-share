@@ -25,7 +25,7 @@ export default function Header() {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarColor02">
-                    <ul className="navbar-nav me-auto">
+                    <ul className="navbar-nav me-auto header-left-section">
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/">Home</NavLink>
                         </li>
@@ -36,23 +36,21 @@ export default function Header() {
                         </li></>
                         }
                     </ul>
-                    <ul className="navbar-nav ms-auto" >
-
-                        { 
-                        !isAuthenticated && 
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/login">Login</NavLink>
-                        </li>
+                    <ul className="navbar-nav ms-auto header-right-section" >
+                        {!isAuthenticated 
+                            ? 
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/login">Login</NavLink>
+                                </li>
+                            :   <>
+                                    <li className="nav-item" id="right-child-1">
+                                        <h5 className="nav-link">Hi, {user?.username}!</h5>
+                                    </li>
+                                    <li className="nav-item" id="right-child-2">
+                                        <button className="nav-link" onClick={handleLogout} >Logout</button>
+                                    </li>
+                                </>
                         }
-
-                        { 
-                        isAuthenticated && <>
-                        <li className="nav-item"><p className="nav-link">Welcome {user?.username}</p> </li>
-                        <li className="nav-item">
-                            <button className="nav-link" onClick={handleLogout} >Logout</button>
-                        </li></>
-                        }
-
                     </ul>
                 </div>
             </div>
