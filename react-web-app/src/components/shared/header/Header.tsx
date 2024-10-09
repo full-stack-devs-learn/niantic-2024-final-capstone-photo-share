@@ -1,3 +1,5 @@
+import "./Header.css"
+
 import { Link, NavLink } from "react-router-dom"
 import { useAppDispatch } from "../../../store/hooks";
 import { logout } from "../../../store/features/authentication-slice";
