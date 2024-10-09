@@ -1,8 +1,13 @@
+import "./AlbumAddModal.css"
+
 import { useState } from 'react';
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { RootState } from "../../../store/store";
 import { Button, Modal } from "react-bootstrap"
-import albumService from '../../services/album-service';
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import albumService from '../../../services/album-service';
 
 export default function AlbumAddModal({onAlbumAdded}: {onAlbumAdded: any})
 {
@@ -33,9 +38,12 @@ export default function AlbumAddModal({onAlbumAdded}: {onAlbumAdded: any})
 
     return (
         <>
-        <Button variant="primary" onClick={handleShow}>
-            Create new album
-        </Button>
+        <div id="add-button">
+            <Button variant="primary" onClick={handleShow}>
+                <FontAwesomeIcon icon={faPlus} className="me-2"/>
+                New album
+            </Button>
+        </div>
 
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>

@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Album } from "../../../models/album";
 import albumService from "../../../services/album-service";
 import AlbumThumbnailCard from "../AlbumThumbnailCard/AlbumThumbnailCard";
-import AlbumAddModal from "../AlbumAddModal";
+import AlbumAddModal from "../AlbumAddModal/AlbumAddModal";
 import { Link } from "react-router-dom";
 
 export default function UserAlbumsContainer({profileId}: {profileId: number})

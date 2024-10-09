@@ -1,5 +1,4 @@
 import "./AlbumDetails.css"
-import "../../../index.css"
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import AlbumAddPhotosModal from "../AlbumAddPhotosModal/AlbumAddPhotosModal";

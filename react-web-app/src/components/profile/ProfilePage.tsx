@@ -1,6 +1,5 @@
-import { Button } from "react-bootstrap";
 import UserPhotosContainer from "./UserPhotosContainer";
-import UserProfileContainer from "./UserProfileContainer";
+import UserProfileContainer from "./UserProfileContainer/UserProfileContainer";
 
 import { useParams, Link } from "react-router-dom";
 import UserAlbumsContainer from "../album/UserAlbumsContainer/UserAlbumsContainer";
@@ -12,15 +11,13 @@ export default function ProfilePage()
     const profileSection = window.location.pathname.split('/')[3];
 
     return (
-        <div className="container mb-5">
+        <div className="mb-5 container">
             <UserProfileContainer profileId={+profileId}/>
 
-            <Link to={`/profile/${profileId}`}>
-                <Button>Posts</Button>
-            </Link>
-            <Link to={`/profile/${profileId}/albums`}>
-                <Button>Albums</Button>
-            </Link>
+            <div className="mt-5">
+                <Link className="btn btn-light me-3" to={`/profile/${profileId}`}>Posts</Link>
+                <Link className="btn btn-light" to={`/profile/${profileId}/albums`}>Albums</Link>
+            </div>
             
             {profileSection == "albums" ? 
                 <UserAlbumsContainer profileId={+profileId}/> :
