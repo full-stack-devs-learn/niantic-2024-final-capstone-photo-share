@@ -34,7 +34,7 @@ export default function AlbumThumbnailCard({title, albumId}: {title: string, alb
     .resize(auto().gravity(autoGravity()).width(300).height(300));
 
     return (
-        <Card className="album-card" style={{ width: '18rem' }}>
+        <Card className="album-card">
             <AdvancedImage className="thumbnail-image" cldImg={img} />
             <Card.Body>{title}</Card.Body>
         </Card>

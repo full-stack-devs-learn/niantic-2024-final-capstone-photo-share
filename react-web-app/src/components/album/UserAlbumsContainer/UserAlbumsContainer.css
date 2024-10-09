@@ -2,7 +2,8 @@
 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 380px;
+    grid-column-gap: 35px;
+    grid-row-gap: 35px;
 }
 
 .link
