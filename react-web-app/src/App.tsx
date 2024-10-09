@@ -19,6 +19,7 @@ export default function App() {
                     <Route path="/profile/:profileId" element={<ProfilePage/>} />
                     <Route path="/profile/:profileId/albums" element={<ProfilePage />} />
                     <Route path="/albums/:albumId" element={<AlbumDetails />} />
+                    <Route path="/profile/:profileId/posts/:postId" element={<ProfilePage />} />
                 </Routes>
             </Layout>
         </Router>

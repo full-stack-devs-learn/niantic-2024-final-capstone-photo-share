@@ -17,7 +17,6 @@ export default function UserPhotosContainer({profileId}: {profileId: number})
     }, [profileId]);
 
     return (
-        // Perhaps grid would be easier with 3 fr width and some gap
         <section id="posts-container" className="mt-5">
             {
                 posts.map((post) => (
