@@ -68,7 +68,7 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
     
  
     return (
-        <Card style={{ width: '18rem' }}>
+        <Card id="card-post-container" style={{ width: '18rem' }}>
             <Link to={`/profile/${userId}`}>
                 <Card.Header>
                     <div className="profile-img"></div>

@@ -19,16 +19,6 @@ export default function Home()
     return (
         <>
          <main className="container mt-4" id = "home-page-container">
-        <h1>
-            Home
-        </h1>
-
-        <button onClick={simpleClickHandler}>Simple Authenticated Demo</button>
-
-        <div>
-            {data}
-        </div>
-
         <PostCreationModal onNewPostCreated={(public_id: string) => setNewPost(public_id)}></PostCreationModal>
         <PhotoPostFeed onNewPostCreated={newPost}></PhotoPostFeed>
         </main>  
