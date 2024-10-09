@@ -102,8 +102,12 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
                     </div>
                 </Card.Text>
 
-            :   <Card.Text>
-                {reactions}
+            :   <Card.Text className="card-reactions">
+                <div className="card-reaction-wrapper">
+                <p>{reactions} { reactions == 0
+                                            ? ""
+                                            : reactions > 1 ? "likes" : "like" }</p>
+                </div>
                 <FontAwesomeIcon 
                 icon={faHeart} 
                 />
