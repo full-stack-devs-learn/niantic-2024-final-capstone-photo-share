@@ -58,9 +58,10 @@ export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated:
 
     return (
         <>
-        <Button variant="primary" onClick={handleShow}>
-            Create new post
-        </Button>
+        <button className="card" id="add-post-button"onClick={handleShow}>
+            <span className="material-symbols-outlined">add_circle</span>
+            Create new photo post
+        </button>
 
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
