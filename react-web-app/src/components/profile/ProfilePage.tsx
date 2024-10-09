@@ -3,7 +3,7 @@ import UserPhotosContainer from "./UserPhotosContainer";
 import UserProfileContainer from "./UserProfileContainer";
 
 import { useParams, Link } from "react-router-dom";
-import UserAlbumsContainer from "../album/UserAlbumsContainer";
+import UserAlbumsContainer from "../album/UserAlbumsContainer/UserAlbumsContainer";
 
 export default function ProfilePage()
 {

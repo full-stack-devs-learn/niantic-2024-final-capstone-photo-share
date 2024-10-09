@@ -1,10 +1,10 @@
-import "../../index.css";
+import "../../../index.css";
 
 import { useState, useEffect } from "react";
-import { Album } from "../../models/album";
-import albumService from "../../services/album-service";
-import ThumbnailCard from "../profile/ThumbnailCard";
-import AlbumAddModal from "./AlbumAddModal";
+import { Album } from "../../../models/album";
+import albumService from "../../../services/album-service";
+import AlbumThumbnailCard from "../../profile/AlbumThumbnailCard";
+import AlbumAddModal from "../AlbumAddModal";
 import { Link } from "react-router-dom";
 
 export default function UserAlbumsContainer({profileId}: {profileId: number})
@@ -24,10 +24,10 @@ export default function UserAlbumsContainer({profileId}: {profileId: number})
             {
                 albums.map((album) => (
                     <Link to={`/albums/${album.albumId}`}>
-                        <ThumbnailCard key={album.albumId}
-                        publicId={"cld-sample-5"}
+                        <AlbumThumbnailCard key={album.albumId}
+                        albumId={album.albumId}
                         title={album.title}
-                        ></ThumbnailCard>
+                        ></AlbumThumbnailCard>
                     </Link>
                 ))
             }

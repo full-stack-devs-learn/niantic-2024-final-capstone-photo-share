@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { PhotoPost } from "../../models/photo-post";
 import photoPostService from "../../services/photo-post-service";
-import ThumbnailCard from "./ThumbnailCard";
+import PostThumbnailCard from "./PostThumbnailCard";
 
 export default function UserPhotosContainer({profileId}: {profileId: number})
 {
@@ -19,10 +19,10 @@ export default function UserPhotosContainer({profileId}: {profileId: number})
         <section className="d-flex">
             {
                 posts.map((post) => (
-                    <ThumbnailCard key={post.postId}
+                    <PostThumbnailCard key={post.postId}
                         publicId={post.publicId}
                         title={post.title}
-                        ></ThumbnailCard>
+                        ></PostThumbnailCard>
                 ))
             }
         </section>
