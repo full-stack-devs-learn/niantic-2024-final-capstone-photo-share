@@ -1,4 +1,5 @@
 import "../../../index.css";
+import "./UserAlbumsContainer.css"
 
 import { useState, useEffect } from "react";
 import { Album } from "../../../models/album";
@@ -20,7 +21,7 @@ export default function UserAlbumsContainer({profileId}: {profileId: number})
     return (
         <>
         <AlbumAddModal />
-        <section className="d-flex">
+        <section id="album-container" className="mt-5">
             {
                 albums.map((album) => (
                     <Link to={`/albums/${album.albumId}`}>

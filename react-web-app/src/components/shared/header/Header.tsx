@@ -1,3 +1,5 @@
+import "./Header.css"
+
 import { Link, NavLink } from "react-router-dom"
 import { useAppDispatch } from "../../../store/hooks";
 import { logout } from "../../../store/features/authentication-slice";
@@ -18,7 +20,7 @@ export default function Header() {
     return (
         <nav className="navbar navbar-expand-lg bg-light" data-bs-theme="light">
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/">Capstone</Link>
+                <Link className="navbar-brand" to="/">PhotoShare</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
