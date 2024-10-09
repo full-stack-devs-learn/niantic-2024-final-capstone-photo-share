@@ -21,24 +21,25 @@ export default function AlbumAddPhotos({albumId, onAlbumUpdated}: {albumId: numb
     {
         event.preventDefault();
 
-        checked.forEach(checkedItem => {
-            updatePost(checkedItem)
-        })
+        for(let checkedItem of checked)
+        {
+            await updatePost(checkedItem)
+        }
 
+        setShow(false)
         onAlbumUpdated(checked[0]);
     }
 
     async function updatePost(checkedItem: number)
     {
-        await photoPostService.getById(checkedItem).then(data => {
-            const updatedPost = {
-                publicId: data.publicId,
-                title: data.title,
-                captions: data.captions,
-                albumId: albumId
-            }
-            photoPostService.update(data.postId, updatedPost);
-        }).then(handleClose);
+        const data = await photoPostService.getById(checkedItem)
+        const updatedPost = {
+            publicId: data.publicId,
+            title: data.title,
+            captions: data.captions,
+            albumId: albumId
+        }
+        await photoPostService.update(data.postId, updatedPost);
     }
 
     const handleCheck = (event: any) => {

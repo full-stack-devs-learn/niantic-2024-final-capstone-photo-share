@@ -35,10 +35,15 @@ export default function AlbumDetails()
         })
     }, []);
 
+    async function albumUpdated(postId: number)
+    {
+        setRefreshPage(postId)
+    }
+
     return (
-        <section className="container mt-4" onClick={() => setRefreshPage(refreshPage + 1)}>
+        <section className="container mt-4">
             <Link to={`/profile/${albumData.userId}`}><p>Go back to all albums</p></Link>
-            <AlbumAddPhotos albumId={+albumId} onAlbumUpdated={(postId: number) => setRefreshPage(postId)}/>
+            <AlbumAddPhotos albumId={+albumId} onAlbumUpdated={albumUpdated}/>
             <Carousel activeIndex={index} onSelect={handleSelect} style={{ width: '500px' }}>
             {
                 posts.map((post) => (
