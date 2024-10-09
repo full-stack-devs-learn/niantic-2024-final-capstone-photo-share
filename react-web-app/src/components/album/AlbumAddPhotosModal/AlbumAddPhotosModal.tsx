@@ -1,13 +1,15 @@
+import './AlbumAddPhotosModal.css';
+
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { RootState } from "../../../store/store";
 
-import photoPostService from "../../services/photo-post-service";
-import { PhotoPost } from "../../models/photo-post";
-import SmallThumbnail from "./SmallThumbnail";
+import photoPostService from "../../../services/photo-post-service";
+import { PhotoPost } from "../../../models/photo-post";
+import SmallThumbnail from "../SmallThumbnail";
 import { Button, Modal } from "react-bootstrap";
 
-export default function AlbumAddPhotos({albumId, onAlbumUpdated}: {albumId: number, onAlbumUpdated: any}) {
+export default function AlbumAddPhotosModal({albumId, onAlbumUpdated}: {albumId: number, onAlbumUpdated: any}) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -21,11 +23,9 @@ export default function AlbumAddPhotos({albumId, onAlbumUpdated}: {albumId: numb
     {
         event.preventDefault();
 
-        checked.forEach(checkedItem => {
-            updatePost(checkedItem)
+        checked.forEach(async checkedItem => {
+            await updatePost(checkedItem)
         })
-
-        onAlbumUpdated(checked[0]);
     }
 
     async function updatePost(checkedItem: number)
@@ -38,7 +38,7 @@ export default function AlbumAddPhotos({albumId, onAlbumUpdated}: {albumId: numb
                 albumId: albumId
             }
             photoPostService.update(data.postId, updatedPost);
-        }).then(handleClose);
+        }).then(handleClose, onAlbumUpdated(checked[0]))
     }
 
     const handleCheck = (event: any) => {
@@ -60,29 +60,30 @@ export default function AlbumAddPhotos({albumId, onAlbumUpdated}: {albumId: numb
 
     return (
         <>
-        <Button variant="primary" onClick={handleShow}>
-        Select photos for album
+        <Button className="mt-2" variant="light" onClick={handleShow}>
+        Edit photos for album
         </Button>
 
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-            <Modal.Title>Select photos for album</Modal.Title>
+            <Modal.Title>Edit photos for album</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
-                <form onSubmit={submitHandler}>
+                <form onSubmit={submitHandler} className="formContainer">
                     {
                         posts.map((post) => (
-                            <>
-                            <input type="checkbox" value={post.postId} id={`checkbox-${post.postId}`} onChange={handleCheck}/>
-                            <label htmlFor={`checkbox-${post.postId}`}>
-                                <SmallThumbnail publicId={post.publicId} />
-                            </label>
-                            </>
+                            <div key={post.postId}>
+                                <input type="checkbox" value={post.postId} id={`checkbox-${post.postId}`} onChange={handleCheck}/>
+                                <label htmlFor={`checkbox-${post.postId}`}>
+                                    <SmallThumbnail publicId={post.publicId} />
+                                </label>
+                            </div>
                         ))
                     }
-                    <Button type="submit">Add photos to album</Button>
                 </form>
+                <p className="mt-4">{checked.length} selected</p>
+                <Button type="submit">Add photos to album</Button>
             </Modal.Body>
         </Modal>
         </>

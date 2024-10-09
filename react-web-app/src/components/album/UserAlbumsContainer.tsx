@@ -1,3 +1,5 @@
+import "../../index.css";
+
 import { useState, useEffect } from "react";
 import { Album } from "../../models/album";
 import albumService from "../../services/album-service";
