@@ -21,3 +21,9 @@ input[type="checkbox"]:checked + label
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 115px;
 }
+
+.edit-button
+{
+    display: flex;
+    justify-content: center;
+}

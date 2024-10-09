@@ -63,9 +63,11 @@ export default function AlbumAddPhotosModal({albumId, onAlbumUpdated}: {albumId:
 
     return (
         <>
-        <Button variant="light" onClick={handleShow}>
-        Edit photos for album
-        </Button>
+        <div className="edit-button" >
+            <Button variant="light" onClick={handleShow}>
+            Edit photos for album
+            </Button>
+        </div>
 
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>

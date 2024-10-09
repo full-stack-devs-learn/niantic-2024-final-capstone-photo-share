@@ -48,7 +48,7 @@ export default function AlbumDetails()
                 }
                 </Carousel>
 
-                <Card.Body className="details-card-body">
+                <Card.Body className="details-card-body mt-2">
                     <p>{albumData.description}</p>
                     <AlbumAddPhotosModal albumId={+albumId} onAlbumUpdated={albumUpdated}/>
                 </Card.Body>
