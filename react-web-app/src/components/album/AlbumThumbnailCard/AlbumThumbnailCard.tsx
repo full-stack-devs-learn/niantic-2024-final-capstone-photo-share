@@ -1,3 +1,6 @@
+import "../../../index.css"
+import "./AlbumThumbnailCard.css"
+
 import { useEffect, useState } from 'react';
 
 import { Cloudinary } from '@cloudinary/url-gen';
@@ -5,7 +8,7 @@ import { AdvancedImage } from '@cloudinary/react';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { auto } from '@cloudinary/url-gen/actions/resize';
 import { Card } from 'react-bootstrap';
-import photoPostService from '../../services/photo-post-service';
+import photoPostService from '../../../services/photo-post-service';
 
 export default function AlbumThumbnailCard({title, albumId}: {title: string, albumId: number})
 {
@@ -31,9 +34,9 @@ export default function AlbumThumbnailCard({title, albumId}: {title: string, alb
     .resize(auto().gravity(autoGravity()).width(300).height(300));
 
     return (
-        <Card style={{ width: '18rem' }}>
-            <AdvancedImage cldImg={img} />
-            <p>{title}</p>
+        <Card className="album-card" style={{ width: '18rem' }}>
+            <AdvancedImage className="thumbnail-image" cldImg={img} />
+            <Card.Body>{title}</Card.Body>
         </Card>
     )
 }

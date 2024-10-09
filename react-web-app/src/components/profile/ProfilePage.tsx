@@ -12,7 +12,7 @@ export default function ProfilePage()
     const profileSection = window.location.pathname.split('/')[3];
 
     return (
-        <div className="container">
+        <div className="container mb-5">
             <UserProfileContainer profileId={+profileId}/>
 
             <Link to={`/profile/${profileId}`}>
