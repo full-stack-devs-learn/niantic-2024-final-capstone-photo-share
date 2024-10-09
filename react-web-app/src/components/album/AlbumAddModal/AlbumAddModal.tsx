@@ -45,18 +45,32 @@ export default function AlbumAddModal({onAlbumAdded}: {onAlbumAdded: any})
             </Button>
         </div>
 
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} id="add-album-modal">
             <Modal.Header closeButton>
             <Modal.Title>Create a new album</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
                 <form onSubmit={submitHandler}>
-                    <label htmlFor="title">Title</label>
-                    <input type="text" maxLength={25} name="title" id="title" placeholder="Give your album a title" onChange={(e) => setTitle(e.target.value)} required></input>
+                    <div className="mb-4">
+                        <label className="form-label" htmlFor="title">Title</label>
+                        <input className="form-control"
+                            type="text"
+                            maxLength={25} 
+                            name="title" 
+                            id="title" 
+                            placeholder="Give your album a title" 
+                            onChange={(e) => setTitle(e.target.value)} 
+                            required></input>
 
-                    <label htmlFor="caption">Description</label>
-                    <textarea maxLength={100} name="caption" id="caption" placeholder="Type a description (optional)" onChange={(e) => setDescription(e.target.value)}></textarea>
+                        <label className="mt-3 form-label" htmlFor="caption">Description &#40;optional&#41;</label>
+                        <textarea className="form-control" 
+                                maxLength={100} 
+                                name="caption" id="caption" 
+                                placeholder="Type a description (optional)" 
+                                onChange={(e) => setDescription(e.target.value)}>
+                                </textarea>
+                    </div>
 
                     <Button variant="primary" type="submit">Create</Button>
                 </form>
