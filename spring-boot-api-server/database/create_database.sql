@@ -117,7 +117,7 @@ DELIMITER ;
 -- DATA --
 INSERT INTO profiles(user_id, profile_img, bio)
 VALUES
-(1, "profile_img1.jpg", "Hello, I'm user 1!"),
+(1, "qipoecbc5evjszubti0l", "Hello, I'm user 1!"),
 (2, "profile_img2.jpg", "This is user 2's bio."),
 (3, "profile_img3.jpg", "User 3 here, nice to meet you!"),
 (4, "profile_img4.jpg", "Welcome to user 4's profile!"),
