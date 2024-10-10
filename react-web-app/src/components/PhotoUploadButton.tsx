@@ -25,6 +25,7 @@ export default function PhotoUploadButton({onPhotoUploaded}: {onPhotoUploaded: F
     
                 const response = await cloudinaryApiService.uploadPhoto(formData);
                 setMessage("Successfully uploaded photo!");
+                console.log(response)
                 onPhotoUploaded(response.public_id);
             }
         }

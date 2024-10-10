@@ -26,6 +26,13 @@
     height: 40px;
     border-radius: 100%;
     background-color: #ECECEC;
+    overflow: hidden;
+    border: 1px solid rgba(203, 203, 203, 0.497);
+
+}
+.profile-img > img {
+    max-width: 100%;
+    max-height: 100%;
 }
 #img-wrapper{
     overflow: hidden;

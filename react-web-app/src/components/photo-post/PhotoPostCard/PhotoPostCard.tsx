@@ -39,14 +39,17 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
     useEffect(()=>{
         profileService.getById(userId).then(data =>{  
             setCurrentUser(data)
-            console.log(data)
         })
-        if(currentUser != null){
-        }
     },[]) 
 
     const img = cld
     .image(publicId)
+    .format("auto")
+    .quality("auto")
+    .resize(auto().gravity(autoGravity()).width(600).height(600));
+    
+    const profileImg = cld
+    .image(currentUser?.profileImg)
     .format("auto")
     .quality("auto")
     .resize(auto().gravity(autoGravity()).width(600).height(600));
@@ -72,7 +75,11 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
         <Card className="post-card" style={{ width: '25rem' }}>
             <Link to={`/profile/${userId}`}>
                 <Card.Header className="post-card-header">
-                    <div className="profile-img"></div>
+                    <div className="profile-img">
+                        <AdvancedImage
+                            cldImg={profileImg}
+                        />
+                    </div>
                     {currentUser != null ? currentUser.userName : undefined}
                 </Card.Header>
             </Link>
@@ -91,7 +98,7 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
             <Card.Title>{title}</Card.Title>
             <Card.Text>{captions}</Card.Text>
             {isAuthenticated
-            ?   <Card.Text className="card-reactions">
+            ?   <div className="card-reactions">
                     <div className="card-reaction-wrapper">
                     <p>{currentReactions} { currentReactions == 0
                                             ? ""
@@ -101,19 +108,19 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
                     color={interact ? "red" : "black"} 
                     />
                     </div>
-                </Card.Text>
-
-            :   <Card.Text className="card-reactions">
-                <div className="card-reaction-wrapper">
-                <p>{reactions} { reactions == 0
-                                            ? ""
-                                            : reactions > 1 ? "likes" : "like" }</p>
-    
-                <FontAwesomeIcon 
-                icon={faHeart} 
-                />
                 </div>
-                </Card.Text>
+
+            :   <div className="card-reactions">
+                <div className="card-reaction-wrapper">
+                    <p>{reactions} { reactions == 0
+                                                ? ""
+                                                : reactions > 1 ? "likes" : "like" }
+                    </p>
+                    <FontAwesomeIcon 
+                    icon={faHeart} 
+                    />
+                </div>
+                </div>
             }
             </Card.Body>
         </Card>
