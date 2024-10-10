@@ -37,7 +37,7 @@ export default function PhotoUploadButton({onPhotoUploaded}: {onPhotoUploaded: F
     
     return (
         <>
-        <form onSubmit={submitHandler}>
+        <form className="d-flex" onSubmit={submitHandler}>
             <input
             type="file"
             accept="image/png, image/jpeg"

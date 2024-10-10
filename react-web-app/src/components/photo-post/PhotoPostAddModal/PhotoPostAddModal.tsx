@@ -65,23 +65,23 @@ export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated:
             Create new photo post
         </button>
 
-        <Modal show={show} onHide={handleClose}>
+        <Modal id="add-post-modal" show={show} onHide={handleClose}>
             <Modal.Header closeButton>
             <Modal.Title>Create a new post</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
                 <PhotoUploadButton onPhotoUploaded={showUploadedPhoto}></PhotoUploadButton>
-                    {uploadedImg && <AdvancedImage cldImg={uploadedImg} />}
+                    {uploadedImg && <div className="center-modal-items"><AdvancedImage cldImg={uploadedImg} /></div>}
                     <hr></hr>
                 <form onSubmit={submitHandler}>
-                    <label htmlFor="title">Title</label>
-                    <input type="text" maxLength={25} name="title" id="title" placeholder="Give your photo a title" onChange={(e) => setTitle(e.target.value)} required></input>
+                    <label className="form-label" htmlFor="title">Title</label>
+                    <input className="form-control" type="text" maxLength={25} name="title" id="title" placeholder="Give your photo a title" onChange={(e) => setTitle(e.target.value)} required></input>
 
-                    <label htmlFor="caption">Caption</label>
-                    <textarea maxLength={100} name="caption" id="caption" placeholder="Type a caption (optional)" onChange={(e) => setCaptions(e.target.value)}></textarea>
+                    <label className="form-label mt-3" htmlFor="caption">Caption</label>
+                    <textarea className="form-control" maxLength={100} name="caption" id="caption" placeholder="Type a caption (optional)" onChange={(e) => setCaptions(e.target.value)}></textarea>
 
-                    <Button variant="primary" type="submit">Create</Button>
+                    <div className="center-modal-items"><Button variant="primary mt-4" type="submit">Create post</Button></div>
                 </form>
             </Modal.Body>
         </Modal>
