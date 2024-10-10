@@ -10,6 +10,7 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as solidHeart }  from "@fortawesome/free-solid-svg-icons";
 import photoPostService from "../../services/photo-post-service";
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 import "./PhotoPostFeed.css"
 
 interface PhotoPostProps {
@@ -73,20 +74,24 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
             {isAuthenticated
             ?   <Card.Text>
                 {currentReactions}
-                    <FontAwesomeIcon 
-                    icon={interact ? solidHeart : faHeart} 
-                    color={interact ? "red" : "black"} 
+                    <FontAwesomeIcon
+                    icon={interact ? solidHeart : faHeart}
+                    color={interact ? "red" : "black"}
                     />
                 </Card.Text>
 
             :   <Card.Text>
                 {reactions}
-                <FontAwesomeIcon 
-                icon={faHeart} 
+                <FontAwesomeIcon
+                icon={faHeart}
                 />
                 </Card.Text>
             }
-            </Card.Body>
-        </Card>
-    )
-}
+
+            <Link to={`/comments/${postId}`} className="btn btn-link">
+                                View Comments
+                            </Link>
+                        </Card.Body>
+                    </Card>
+                );
+        }

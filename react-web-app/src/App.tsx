@@ -7,6 +7,7 @@ import Login from './components/authentication/login/Login'
 import Register from './components/authentication/register/Register'
 import ProfilePage from './components/profile/ProfilePage'
 import AlbumDetails from './components/album/AlbumDetails'
+import CommentsPage from './components/comments/CommentsPage'
 
 export default function App() {
     return (
@@ -19,6 +20,7 @@ export default function App() {
                 <Route path="/profile/:profileId" element={<ProfilePage/>} />
                 <Route path="/profile/:profileId/albums" element={<ProfilePage />} />
                 <Route path="/albums/:albumId" element={<AlbumDetails />} />
+                <Route path="/comments/:postId" element={<CommentsPage />} />
             </Routes>
         </Router>
     );
