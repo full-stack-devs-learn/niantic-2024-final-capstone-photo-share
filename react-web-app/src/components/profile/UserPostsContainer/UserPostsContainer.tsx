@@ -19,7 +19,6 @@ export default function UserPhotosContainer({profileId}: {profileId: number})
     function handleClick(postId: number)
     {
         setShow(true);
-        console.log(postId)
         setSelectedPost(posts.filter(post => post.postId == postId)[0]);
     }
 
@@ -43,8 +42,8 @@ export default function UserPhotosContainer({profileId}: {profileId: number})
             }
 
         {show == true &&
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Body className="mx-auto">
+            <Modal className="mt-5 w-100" show={show} onHide={handleClose}>
+                <Modal.Body className="mx-auto py-5">
                     <PhotoPostCard key={selectedPost!.postId}
                         userId={selectedPost!.userId}
                         postId={selectedPost!.postId}

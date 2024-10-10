@@ -72,7 +72,7 @@ export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated:
 
             <Modal.Body>
                 <PhotoUploadButton onPhotoUploaded={showUploadedPhoto}></PhotoUploadButton>
-                    {uploadedImg && <div className="center-modal-items"><AdvancedImage cldImg={uploadedImg} /></div>}
+                    {uploadedImg && <div className="center-modal-items mb-5"><AdvancedImage cldImg={uploadedImg} /></div>}
                     <hr></hr>
                 <form onSubmit={submitHandler}>
                     <label className="form-label" htmlFor="title">Title</label>
