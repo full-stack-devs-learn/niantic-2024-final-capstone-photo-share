@@ -10,17 +10,15 @@ public class Comment {
     private Long id;
     @Setter
     private String content;
-    private Post post; // Post must not be null
+    private Post post;
     private User user;
     @Setter
     private LocalDateTime createdAt;
 
-    // Default constructor that initializes the createdAt timestamp
     public Comment() {
         this.createdAt = LocalDateTime.now();
     }
 
-    // Getters and Setters
 
     public Long getId() {
         return id;
