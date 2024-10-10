@@ -58,6 +58,26 @@ async function submitHandler(event: any)
 
 ### Hannah
 ### Jordan
+This block of code automates the process of updating the reactions column in the posts table by counting interactions from the post_interactions table. It uses a MySQL event that runs every 10 seconds, ensuring the reaction count stays accurate. This approach optimizes performance by eliminating the need for manual updates after each interaction.
+```sql
+SET GLOBAL event_scheduler = ON;
+DROP EVENT IF EXISTS update_likes_event;
+
+DELIMITER //
+CREATE EVENT update_likes_event
+ON SCHEDULE EVERY 10 SECOND
+DO
+BEGIN
+	UPDATE posts p
+	SET reactions = (
+		SELECT COUNT(*)
+		FROM post_interactions pi
+		WHERE pi.post_id = p.post_id AND pi.interacted = TRUE
+	);
+END //
+
+DELIMITER ;
+```
 ### Tabatha
 
 ## Challenges
@@ -70,4 +90,9 @@ async function submitHandler(event: any)
 
 ### Hannah
 ### Jordan
+**Problem:** The biggest challenge was accurately tracking reactions for each post based on user interactions without allowing multiple likes from the same user.
+
+**Approach:** Initially, I used a simple increment and decrement method to update the reactions count, which did not account for unique user interactions.
+
+**Solution:** I implemented a scheduled MySQL event that recalculates the reactions by counting unique interactions from the post_interactions table, ensuring accurate updates every 10 seconds.
 ### Tabatha
