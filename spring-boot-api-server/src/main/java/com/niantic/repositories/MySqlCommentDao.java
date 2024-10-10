@@ -21,49 +21,45 @@ public class MySqlCommentDao implements CommentDao {
 
     @Override
     public List<Comment> findByPostId(Long postId) {
-        String sql = "SELECT * FROM comments WHERE post_id = ?";
+        String sql = "SELECT c.*, u.username FROM comments c " +
+                "JOIN users u ON c.user_id = u.user_id WHERE c.post_id = ?";
         return jdbcTemplate.query(sql, new Object[]{postId}, this::mapRowToComment);
     }
 
     @Override
     public Comment save(Comment comment) {
-        if (comment.getPost() == null) {
-            throw new IllegalArgumentException("Post cannot be null when saving a comment.");
-        }
-
-        if (comment.getUser() == null) {
-            throw new IllegalArgumentException("User cannot be null when saving a comment.");
-        }
-
+        
         String sql = "INSERT INTO comments (content, post_id, user_id, created_at) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, comment.getContent(), comment.getPost().getPostId(), comment.getUser().getId(), comment.getCreatedAt());
-        return comment;
+
+        String fetchSql = "SELECT c.*, u.username FROM comments c JOIN users u ON c.user_id = u.user_id WHERE c.id = LAST_INSERT_ID()";
+        return jdbcTemplate.queryForObject(fetchSql, this::mapRowToComment);
     }
 
-    // Renamed to deleteById to match the interface
+
     @Override
     public void deleteById(Long id) {
         String sql = "DELETE FROM comments WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
 
-    // Mapping SQL ResultSet to Comment object
     private Comment mapRowToComment(ResultSet rs, int rowNum) throws SQLException {
         Comment comment = new Comment();
         comment.setId(rs.getLong("id"));
         comment.setContent(rs.getString("content"));
 
-        // Set Post association
+
         Post post = new Post();
         post.setPostId(rs.getInt("post_id"));
         comment.setPost(post);
 
-        // Set User association
+
         User user = new User();
         user.setId(rs.getInt("user_id"));
+        user.setUsername(rs.getString("username"));
         comment.setUser(user);
 
-        // Set the created_at timestamp
+
         comment.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
 
         return comment;

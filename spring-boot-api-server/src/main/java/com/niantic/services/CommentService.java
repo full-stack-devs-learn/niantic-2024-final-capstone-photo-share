@@ -18,6 +18,9 @@ public class CommentService {
     }
 
     public Comment addComment(Comment comment) {
+        if (comment.getUser() == null) {
+            throw new IllegalArgumentException("User must be provided.");
+        }
         return commentDao.save(comment);
     }
 
