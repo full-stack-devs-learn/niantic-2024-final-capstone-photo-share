@@ -14,12 +14,17 @@ import { AdvancedImage } from '@cloudinary/react';
 // Cloudinary - Import any actions required for transformations.
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { auto } from '@cloudinary/url-gen/actions/resize';
+import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
 
 export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated: any}) {
     // Bootstrap stuff
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+
     const handleShow = () => setShow(true);
+    const handleClose = () => {
+        setShow(false);
+        setUploadedImg(undefined);
+    }
 
     const [uploadedImg, setUploadedImg] = useState<CloudinaryImage>();
     const [publicId, setPublicId] = useState("");
@@ -36,7 +41,8 @@ export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated:
         .image(public_id)
         .format("auto")
         .quality("auto")
-        .resize(auto().gravity(autoGravity()).width(300).height(300));
+        .resize(auto().gravity(autoGravity()).width(300).height(300))
+        .roundCorners(byRadius(17));
 
         setUploadedImg(img);
         setPublicId(public_id);
@@ -55,7 +61,6 @@ export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated:
 
         await photoPostService.add(newPhotoPost).then(handleClose)
         onNewPostCreated(publicId);
-        setUploadedImg(undefined);
     }
 
     return (

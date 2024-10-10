@@ -12,6 +12,11 @@ A one-week group project! PhotoShare is a web application dedicated to documenti
 
 ## Project Design
 ## Front End
+![screenshot of home page](./readme-img/home.png)
+![screenshot of profile page](./readme-img/profile.png)
+![screenshot of albums page](./readme-img/album-edit.png)
+![screenshot of creating a post](./readme-img/create-post.png)
+
 ## Development Stack
 ## Database Design
 ## API Architecture
