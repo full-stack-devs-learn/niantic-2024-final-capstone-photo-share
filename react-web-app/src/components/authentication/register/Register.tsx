@@ -1,3 +1,5 @@
+import "./Register.css"
+
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import authenticationService from "../../../services/authentication-service"
@@ -28,40 +30,33 @@ export default function Register()
     }
 
     return (
-        <div className="container">
-        <h2>Login</h2>
+        <div className="container mt-5 login-card">
+        <h2>Register as new user</h2>
         <form onSubmit={loginHandler} method="post">
-            <div className="row">
-                <label htmlFor="username">Username:</label>
-                <input type="text" className="form-control" name="username" id="username"
-                    onChange={(e) => setUserName(e.target.value)}
-                />
-            </div>
+            <label className="form-label mt-3" htmlFor="username">Username:</label>
+            <input type="text" className="form-control" name="username" id="username"
+                onChange={(e) => setUserName(e.target.value)}
+            />
 
-            <div className="row">
-                <label htmlFor="password">Password:</label>
-                <input type="password" className="form-control" name="password" id="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
+            <label className="form-label mt-3" htmlFor="password">Password:</label>
+            <input type="password" className="form-control" name="password" id="password"
+                onChange={(e) => setPassword(e.target.value)}
+            />
 
-            <div className="row">
-                <label htmlFor="confirm-password">Confirm Password:</label>
-                <input type="password" className="form-control" name="confirm-password" id="confirm-password"
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-            </div>
+            <label className="form-label mt-3" htmlFor="confirm-password">Confirm Password:</label>
+            <input type="password" className="form-control" name="confirm-password" id="confirm-password"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+            />
 
-            <div className="row">
-                <label htmlFor="role">Select Role:</label>
-                <select className="form-select" name="role" id="role" onChange={(e) => setRole(e.target.value)}>
-                    <option value="USER">User</option>
-                    <option value="Admin">Admin</option>
-                </select>
-            </div>
-            <button className="btn btn-success mr-3" type="submit">Register</button>
+            <label className="form-label mt-3" htmlFor="role">Select Role:</label>
+            <select className="form-select" name="role" id="role" onChange={(e) => setRole(e.target.value)}>
+                <option value="USER">User</option>
+                <option value="Admin">Admin</option>
+            </select>
+
+            <button className="btn btn-success mt-4" type="submit">Register</button>
         </form>
-        <Link to="/login">Login</Link>
+        <Link to="/login" className="btn btn-light mt-3">Login</Link>
         </div>
     )
 }

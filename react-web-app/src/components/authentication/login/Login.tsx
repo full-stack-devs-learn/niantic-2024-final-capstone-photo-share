@@ -1,3 +1,5 @@
+import "./Login.css"
+
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { LoginCredentials } from "../../../models/security/user-credentials"
@@ -28,27 +30,21 @@ export default function Login()
     }
 
     return (
-        <div className="container">
-        <h2>Login</h2>
-        <form onSubmit={loginHandler} method="post">
-            <div className="row">
-                <label htmlFor="username">Username:</label>
-                <input type="text" className="form-control" name="username" id="username"
-                    onChange={(e) => setUserName(e.target.value)}
-                />
-            </div>
+        <div className="container mt-5 login-card">
+            <h1 className="mb-4">Login</h1>
+            <form onSubmit={loginHandler} method="post">
+                <label className="form-label" htmlFor="username">Username:</label>
+                    <input type="text" className="form-control" name="username" id="username"
+                        onChange={(e) => setUserName(e.target.value)}
+                    />
 
-            <div className="row">
-                <label htmlFor="password">Password:</label>
-                <input type="password" className="form-control" name="password" id="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
-            <button className="btn btn-success mr-3 mt-4" type="submit">Login</button>
-        </form>
-        <button type="button" className="btn btn-light mt-4" id="new-user">
-        <Link to="/register">Register as new user</Link>
-        </button>
+                    <label className="form-label mt-3" htmlFor="password">Password:</label>
+                    <input type="password" className="form-control" name="password" id="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                <button className="btn btn-success mr-3 mt-4" type="submit">Login</button>
+            </form>
+            <Link to="/register" className="btn btn-light mt-4" id="new-user">Register as new user</Link>
         </div>
     )
 }

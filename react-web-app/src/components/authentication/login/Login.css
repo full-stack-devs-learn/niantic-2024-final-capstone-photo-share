@@ -1,0 +1,9 @@
+.login-card
+{
+    border-radius: 30px;
+    background: none;
+    border: none;
+    box-shadow: 8px 8px 18px 12px rgb(237, 239, 241);
+    color: #4e4e4e !important;
+    padding: 50px;
+}
