@@ -11,7 +11,10 @@ import { Button, Modal } from "react-bootstrap";
 
 export default function AlbumAddPhotosModal({albumId, onAlbumUpdated}: {albumId: number, onAlbumUpdated: any}) {
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false);
+        setChecked([]);
+    }
     const handleShow = () => setShow(true);
 
     const [posts, setPosts] = useState<PhotoPost[]>([]);
@@ -30,6 +33,7 @@ export default function AlbumAddPhotosModal({albumId, onAlbumUpdated}: {albumId:
 
         setShow(false);
         onAlbumUpdated(checked[0]);
+        setChecked([]);
     }
 
     async function updatePost(checkedItem: number)
