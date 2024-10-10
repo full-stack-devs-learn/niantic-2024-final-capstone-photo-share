@@ -1,13 +1,15 @@
+import './AlbumAddPhotosModal.css';
+
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { RootState } from "../../../store/store";
 
-import photoPostService from "../../services/photo-post-service";
-import { PhotoPost } from "../../models/photo-post";
-import SmallThumbnail from "./SmallThumbnail";
+import photoPostService from "../../../services/photo-post-service";
+import { PhotoPost } from "../../../models/photo-post";
+import SmallThumbnail from "../SmallThumbnail";
 import { Button, Modal } from "react-bootstrap";
 
-export default function AlbumAddPhotos({albumId, onAlbumUpdated}: {albumId: number, onAlbumUpdated: any}) {
+export default function AlbumAddPhotosModal({albumId, onAlbumUpdated}: {albumId: number, onAlbumUpdated: any}) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -21,24 +23,25 @@ export default function AlbumAddPhotos({albumId, onAlbumUpdated}: {albumId: numb
     {
         event.preventDefault();
 
-        checked.forEach(checkedItem => {
-            updatePost(checkedItem)
-        })
+        for(let checkedItem of checked)
+        {
+            await updatePost(checkedItem)
+        }
 
+        setShow(false);
         onAlbumUpdated(checked[0]);
     }
 
     async function updatePost(checkedItem: number)
     {
-        await photoPostService.getById(checkedItem).then(data => {
-            const updatedPost = {
-                publicId: data.publicId,
-                title: data.title,
-                captions: data.captions,
-                albumId: albumId
-            }
-            photoPostService.update(data.postId, updatedPost);
-        }).then(handleClose);
+        const data = await photoPostService.getById(checkedItem)
+        const updatedPost = {
+            publicId: data.publicId,
+            title: data.title,
+            captions: data.captions,
+            albumId: albumId
+        }
+        await photoPostService.update(data.postId, updatedPost);
     }
 
     const handleCheck = (event: any) => {
@@ -60,27 +63,32 @@ export default function AlbumAddPhotos({albumId, onAlbumUpdated}: {albumId: numb
 
     return (
         <>
-        <Button variant="primary" onClick={handleShow}>
-        Select photos for album
-        </Button>
+        <div className="edit-button" >
+            <Button variant="light" onClick={handleShow}>
+            Edit photos for album
+            </Button>
+        </div>
 
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-            <Modal.Title>Select photos for album</Modal.Title>
+            <Modal.Title>Edit photos for album</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
                 <form onSubmit={submitHandler}>
+                    <div className="formContainer">
                     {
                         posts.map((post) => (
-                            <>
-                            <input type="checkbox" value={post.postId} id={`checkbox-${post.postId}`} onChange={handleCheck}/>
-                            <label htmlFor={`checkbox-${post.postId}`}>
-                                <SmallThumbnail publicId={post.publicId} />
-                            </label>
-                            </>
+                            <div key={post.postId}>
+                                <input type="checkbox" value={post.postId} id={`checkbox-${post.postId}`} onChange={handleCheck}/>
+                                <label htmlFor={`checkbox-${post.postId}`}>
+                                    <SmallThumbnail publicId={post.publicId} />
+                                </label>
+                            </div>
                         ))
                     }
+                    </div>
+                    <p className="mt-4">{checked.length} selected</p>
                     <Button type="submit">Add photos to album</Button>
                 </form>
             </Modal.Body>

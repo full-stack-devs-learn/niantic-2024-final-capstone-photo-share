@@ -1,0 +1,89 @@
+.post-card{
+    --bs-card-border-radius: 30px !important;
+    background: none;
+    border: none;
+    box-shadow: 12px 13px 30px 12px rgb(237, 239, 241);
+    --bs-card-border-width: none !important;
+    --bs-card-cap-bg: none;
+    font-weight: 500;
+}
+
+.card a {
+    text-decoration: none;
+    color: black;
+}
+.post-card-header{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 20px 20px 0 0 !important;
+    --bs-card-cap-padding-y: 0.75rem;
+    --bs-card-cap-bg: white;
+}
+
+.profile-img{
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background-color: #ECECEC;
+    overflow: hidden;
+    border: 1px solid rgba(203, 203, 203, 0.497);
+
+}
+.profile-img > img {
+    max-width: 100%;
+    max-height: 100%;
+}
+#img-wrapper{
+    overflow: hidden;
+    display: flex;
+    place-items: center;
+    position: relative;
+}
+#img-wrapper > img {
+    max-width: 100%;
+}
+
+.heart-animation {
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    opacity: 1;
+    animation: fadeOut 1s forwards;
+    pointer-events: none;
+}
+
+@keyframes fadeOut {
+    0% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -60%) scale(2.5);
+        opacity: 0;
+    }
+}
+.post-card-body{
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title{
+    text-align: left;
+}
+.card-text{
+    text-align: left;
+    font-weight: 300;
+}
+.card-reactions{
+    align-self: flex-end;
+}
+.card-reaction-wrapper{
+    display: flex;
+    place-items: center;
+}
+.card-reaction-wrapper > p {
+    margin: 0 5px 0 0;
+    font-weight: 300;
+}

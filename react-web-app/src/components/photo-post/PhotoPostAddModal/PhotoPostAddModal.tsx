@@ -1,9 +1,11 @@
+import "./PhotoPostAddModal.css"
+
 import { useState } from 'react';
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { RootState } from "../../../store/store";
 import { Button, Modal } from 'react-bootstrap';
-import PhotoUploadButton from '../PhotoUploadButton';
-import photoPostService from '../../services/photo-post-service';
+import PhotoUploadButton from '../../PhotoUploadButton';
+import photoPostService from '../../../services/photo-post-service';
 
 // Cloudinary - Imports
 import { Cloudinary, CloudinaryImage } from '@cloudinary/url-gen';
@@ -26,7 +28,7 @@ export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated:
 
     const cld = new Cloudinary({ cloud: { cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME } });
 
-    const { user } = useSelector((state: RootState) => state.authentication);
+    const { user, isAuthenticated } = useSelector((state: RootState) => state.authentication);
 
     function showUploadedPhoto(public_id: string)
     {
@@ -58,27 +60,29 @@ export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated:
 
     return (
         <>
-        <Button variant="primary" onClick={handleShow}>
-            Create new post
-        </Button>
+        {isAuthenticated && <button className="mt-4" id="add-post-button"onClick={handleShow}>
+            <span className="material-symbols-outlined">add_circle</span>
+            Create new photo post 
+        </button>}
+        
 
-        <Modal show={show} onHide={handleClose}>
+        <Modal id="add-post-modal" show={show} onHide={handleClose}>
             <Modal.Header closeButton>
             <Modal.Title>Create a new post</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
                 <PhotoUploadButton onPhotoUploaded={showUploadedPhoto}></PhotoUploadButton>
-                    {uploadedImg && <AdvancedImage cldImg={uploadedImg} />}
+                    {uploadedImg && <div className="center-modal-items mb-5"><AdvancedImage cldImg={uploadedImg} /></div>}
                     <hr></hr>
                 <form onSubmit={submitHandler}>
-                    <label htmlFor="title">Title</label>
-                    <input type="text" maxLength={25} name="title" id="title" placeholder="Give your photo a title" onChange={(e) => setTitle(e.target.value)} required></input>
+                    <label className="form-label" htmlFor="title">Title</label>
+                    <input className="form-control" type="text" maxLength={25} name="title" id="title" placeholder="Give your photo a title" onChange={(e) => setTitle(e.target.value)} required></input>
 
-                    <label htmlFor="caption">Caption</label>
-                    <textarea maxLength={100} name="caption" id="caption" placeholder="Type a caption (optional)" onChange={(e) => setCaptions(e.target.value)}></textarea>
+                    <label className="form-label mt-3" htmlFor="caption">Caption</label>
+                    <textarea className="form-control" maxLength={100} name="caption" id="caption" placeholder="Type a caption (optional)" onChange={(e) => setCaptions(e.target.value)}></textarea>
 
-                    <Button variant="primary" type="submit">Create</Button>
+                    <div className="center-modal-items"><Button variant="primary mt-4" type="submit">Create post</Button></div>
                 </form>
             </Modal.Body>
         </Modal>

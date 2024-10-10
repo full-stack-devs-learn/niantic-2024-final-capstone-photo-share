@@ -39,7 +39,7 @@ VALUES  ('user','$2a$10$NkufUPF3V8dEPSZeo1fzHe9ScBu.LOay9S3N32M84yuUM2OJYEJ/.','
 ('gandalf','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_ADMIN'),
 ('frodo','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_USER'),
 ('samwise','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_HOBBIT'),
-('gollum','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_USER');
+('Ash Ketchum','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_USER');
 
 CREATE TABLE profiles 
 (
@@ -117,12 +117,12 @@ DELIMITER ;
 -- DATA --
 INSERT INTO profiles(user_id, profile_img, bio)
 VALUES
-(1, "profile_img1.jpg", "Hello, I'm user 1!"),
+(1, "qipoecbc5evjszubti0l", "Hello, I'm user 1!"),
 (2, "profile_img2.jpg", "This is user 2's bio."),
 (3, "profile_img3.jpg", "User 3 here, nice to meet you!"),
 (4, "profile_img4.jpg", "Welcome to user 4's profile!"),
 (5, "profile_img5.jpg", "Hey, I'm user 5!"),
-(6, "profile_img6.jpg", "This is the profile of user 6.");
+(6, "Ash_3_rbbtbo", "Hey, I'm Ash Ketchum from Pallet Town");
 
 INSERT INTO albums (user_id, title, description, created_at)
 VALUES

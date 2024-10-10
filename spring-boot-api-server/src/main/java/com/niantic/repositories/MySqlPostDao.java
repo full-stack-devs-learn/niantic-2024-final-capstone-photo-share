@@ -1,5 +1,6 @@
 package com.niantic.repositories;
 
+import com.niantic.models.Album;
 import com.niantic.models.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -178,6 +179,32 @@ public class MySqlPostDao implements PostDao {
                  new Object[]{postId},
                  new PostRowMapper()
          );
+
+        Post post = result.isEmpty()
+                ? null
+                : result.getFirst();
+
+        return post;
+    }
+
+    public Post getThumbnail(int albumId)
+    {
+        String sql = """
+                SELECT
+                    *
+                FROM
+                    posts
+                WHERE
+                    album_id = ?
+                LIMIT
+                    1;
+                """;
+
+        List<Post> result = jdbcTemplate.query(
+                sql,
+                new Object[]{albumId},
+                new PostRowMapper()
+        );
 
         Post post = result.isEmpty()
                 ? null

@@ -25,6 +25,7 @@ export default function PhotoUploadButton({onPhotoUploaded}: {onPhotoUploaded: F
     
                 const response = await cloudinaryApiService.uploadPhoto(formData);
                 setMessage("Successfully uploaded photo!");
+                console.log(response)
                 onPhotoUploaded(response.public_id);
             }
         }
@@ -37,7 +38,7 @@ export default function PhotoUploadButton({onPhotoUploaded}: {onPhotoUploaded: F
     
     return (
         <>
-        <form onSubmit={submitHandler}>
+        <form className="d-flex" onSubmit={submitHandler}>
             <input
             type="file"
             accept="image/png, image/jpeg"
@@ -46,8 +47,8 @@ export default function PhotoUploadButton({onPhotoUploaded}: {onPhotoUploaded: F
             }}
             ></input>
             <Button variant="secondary" type="submit">Upload</Button>
-            <p>{message}</p>
         </form>
+        <p className="my-4 text-center">{message}</p>
         </>
     )
 }

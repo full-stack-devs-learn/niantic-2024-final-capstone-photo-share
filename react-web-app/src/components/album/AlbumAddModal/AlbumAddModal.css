@@ -1,0 +1,13 @@
+#add-button
+{
+    display: flex;
+    justify-content: right;
+}
+
+#add-album-modal
+{
+    --bs-modal-border-width: 0;
+    --bs-modal-border-radius: 25px;
+    --bs-modal-header-padding: 1rem 1.3rem;
+    --bs-modal-padding: 1.3rem;
+}

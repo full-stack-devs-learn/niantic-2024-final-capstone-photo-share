@@ -1,11 +1,13 @@
-import photoPostService from "../../services/photo-post-service";
-import postInteractionService from "../../services/post-interaction-service";
+import "./PhotoPostFeed.css"
+
+import photoPostService from "../../../services/photo-post-service";
+import postInteractionService from "../../../services/post-interaction-service";
 import { useState, useEffect } from 'react';
-import PhotoPostCard from "./PhotoPostCard";
-import { PhotoPost } from "../../models/photo-post";
+import PhotoPostCard from "../PhotoPostCard/PhotoPostCard";
+import { PhotoPost } from "../../../models/photo-post";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { RootState } from "../../../store/store";
 
 export default function PhotoPostFeed({onNewPostCreated}: {onNewPostCreated: any})
 {

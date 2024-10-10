@@ -108,6 +108,25 @@ public class PostController {
         }
     }
 
+    @GetMapping(path = "/album/{albumId}/thumbnail")
+    public ResponseEntity<?> getThumbnail(@PathVariable int albumId)
+    {
+        try
+        {
+            var result = mySqlPostDao.getThumbnail(albumId);
+            if(result == null)
+            {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(result);
+        }
+        catch (Exception e)
+        {
+            //Server Error
+            return ResponseEntity.internalServerError().body("An  internal server error");
+        }
+    }
+
     @PostMapping
     public ResponseEntity<?> addPost(@RequestBody Post post)
     {
