@@ -39,7 +39,6 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
     useEffect(()=>{
         profileService.getById(userId).then(data =>{  
             setCurrentUser(data)
-            console.log(data)
         })
         if(currentUser != null){
         }
