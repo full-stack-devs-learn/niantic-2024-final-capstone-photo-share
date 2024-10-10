@@ -1,6 +1,6 @@
 import { useState } from "react";
-import PostCreationModal from "../photo-post/PhotoPostAddModal";
-import PhotoPostFeed from '../photo-post/PhotoPostFeed'
+import PostCreationModal from "../photo-post/PhotoPostAddModal/PhotoPostAddModal";
+import PhotoPostFeed from '../photo-post/PhotoPostFeed/PhotoPostFeed'
 import "./home.css"
 
 export default function Home()

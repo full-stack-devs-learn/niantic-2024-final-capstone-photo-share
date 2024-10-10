@@ -1,3 +1,5 @@
+import "./PhotoPostCard.css"
+
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import { Cloudinary } from '@cloudinary/url-gen';
@@ -5,14 +7,13 @@ import { AdvancedImage } from '@cloudinary/react';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { auto } from '@cloudinary/url-gen/actions/resize';
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { RootState } from "../../../store/store";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as solidHeart }  from "@fortawesome/free-solid-svg-icons";
-import photoPostService from "../../services/photo-post-service";
+import photoPostService from "../../../services/photo-post-service";
 import { useEffect, useState } from "react";
-import "./PhotoPostFeed.css"
-import profileService from "../../services/profile-service";
+import profileService from "../../../services/profile-service";
 
 interface PhotoPostProps {
     userId: number;
@@ -48,7 +49,7 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
     .image(publicId)
     .format("auto")
     .quality("auto")
-    .resize(auto().gravity(autoGravity()).width(300).height(300));
+    .resize(auto().gravity(autoGravity()).width(600).height(600));
 
 
     async function likeHandler() {
@@ -68,7 +69,7 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
     
  
     return (
-        <Card id="card-post-container" style={{ width: '18rem' }}>
+        <Card className="post-card" style={{ width: '25rem' }}>
             <Link to={`/profile/${userId}`}>
                 <Card.Header className="post-card-header">
                     <div className="profile-img"></div>

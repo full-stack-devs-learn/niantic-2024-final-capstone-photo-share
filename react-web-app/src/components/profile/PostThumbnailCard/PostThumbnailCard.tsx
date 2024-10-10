@@ -18,9 +18,9 @@ export default function ThumbnailCard({postId, title, publicId, cardClicked}: {p
 
     return (
         <>
-        <Card className="post-card" onClick={() => cardClicked(postId)}>
+        <Card className="post-thumbnail-card" onClick={() => cardClicked(postId)}>
             <AdvancedImage className="thumbnail-image" cldImg={img} />
-            <Card.Body className="post-card-body">{title}</Card.Body>
+            <Card.Body className="post-thumbnail-card-body">{title}</Card.Body>
         </Card>
         </>
     )

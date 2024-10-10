@@ -1,4 +1,4 @@
-.post-card
+.post-thumbnail-card
 {
     --bs-card-border-radius: 30px !important;
     background: none;
@@ -9,7 +9,7 @@
     font-weight: 500;
 }
 
-.post-card-body
+.post-thumbnail-card-body
 {
     padding-bottom: 20px !important;
     text-align: center;

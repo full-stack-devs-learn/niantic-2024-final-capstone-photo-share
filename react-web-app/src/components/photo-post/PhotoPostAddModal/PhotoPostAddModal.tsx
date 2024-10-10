@@ -1,9 +1,11 @@
+import "./PhotoPostAddModal.css"
+
 import { useState } from 'react';
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { RootState } from "../../../store/store";
 import { Button, Modal } from 'react-bootstrap';
-import PhotoUploadButton from '../PhotoUploadButton';
-import photoPostService from '../../services/photo-post-service';
+import PhotoUploadButton from '../../PhotoUploadButton';
+import photoPostService from '../../../services/photo-post-service';
 
 // Cloudinary - Imports
 import { Cloudinary, CloudinaryImage } from '@cloudinary/url-gen';
@@ -58,7 +60,7 @@ export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated:
 
     return (
         <>
-        <button className="card" id="add-post-button"onClick={handleShow}>
+        <button className="mt-4" id="add-post-button"onClick={handleShow}>
             <span className="material-symbols-outlined">add_circle</span>
             Create new photo post
         </button>

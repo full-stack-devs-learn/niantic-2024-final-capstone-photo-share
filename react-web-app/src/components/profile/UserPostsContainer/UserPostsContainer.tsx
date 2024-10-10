@@ -6,7 +6,7 @@ import { PhotoPost } from "../../../models/photo-post";
 import photoPostService from "../../../services/photo-post-service";
 import PostThumbnailCard from "../PostThumbnailCard/PostThumbnailCard";
 import { Modal } from "react-bootstrap";
-import PhotoPostCard from "../../photo-post/PhotoPostCard";
+import PhotoPostCard from "../../photo-post/PhotoPostCard/PhotoPostCard";
 
 export default function UserPhotosContainer({profileId}: {profileId: number})
 {
