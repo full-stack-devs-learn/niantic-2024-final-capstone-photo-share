@@ -35,11 +35,11 @@ gollum		password
  are: password */
 INSERT INTO users (username, hashed_password, role)
 VALUES  ('user','$2a$10$NkufUPF3V8dEPSZeo1fzHe9ScBu.LOay9S3N32M84yuUM2OJYEJ/.','ROLE_USER'),
-('admin','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_ADMIN'),
+('john_doe','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_ADMIN'),
 ('gandalf','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_ADMIN'),
 ('frodo','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_USER'),
 ('samwise','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_HOBBIT'),
-('Ash Ketchum','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_USER');
+('ash_ketchum','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_USER');
 
 CREATE TABLE profiles 
 (
@@ -117,32 +117,36 @@ DELIMITER ;
 -- DATA --
 INSERT INTO profiles(user_id, profile_img, bio)
 VALUES
-(1, "qipoecbc5evjszubti0l", "Hello, I'm user 1!"),
-(2, "llwyfxpjsend3cvmfdp8", "This is user 2's bio."),
-(3, "nxqe8esniintwphhulqx", "User 3 here, nice to meet you!"),
-(4, "hotpg7l7qn9pjlnuxewm", "Welcome to user 4's profile!"),
-(5, "zv8u5ndzemnfnmkddobw", "Hey, I'm user 5!"),
+(1, "qipoecbc5evjszubti0l", "Capturing the beauty of everyday moments!"),
+(2, "llwyfxpjsend3cvmfdp8", "I'm a nature enthusiast, always seeking the beauty in the great outdoors. Join me as I hike, camp, and appreciate the world around us."),
+(3, "nxqe8esniintwphhulqx", "Capturing life's little moments, one click at a time! 📸 Follow my journey on PhotoShare, where I share my daily adventures and the beauty around me."),
+(4, "hotpg7l7qn9pjlnuxewm", "Foodie and amateur chef here! I love experimenting in the kitchen and sharing my culinary creations."),
+(5, "zv8u5ndzemnfnmkddobw", "Nature lover and outdoor enthusiast. "),
 (6, "Ash_3_rbbtbo", "Hey, I'm Ash Ketchum from Pallet Town");
 
 INSERT INTO albums (user_id, title, description, created_at)
 VALUES
-(1, 'My First Album', 'This is the description of the first album', NOW());
+(1, 'Food Adventures', 'From street food to gourmet, this album captures my delicious adventures.', NOW());
 
 INSERT INTO posts (user_id, public_id, title, captions, created_at, album_id)
 VALUES
-(1, 'cld-sample-2', 'Post Title 1', 'This is the caption for post 1', NOW(), 1),
-(2, 'cld-sample-3', 'Post Title 2', 'This is the caption for post 2', NOW(), NULL),
-(3, 'cld-sample-4', 'Post Title 3', 'This is the caption for post 3', NOW(), NULL),
-(1, 'cld-sample-5', 'Post Title 4', 'This is the caption for post 4', NOW(), NULL),
-(2, 'MooDeng_aqxolp', 'Post Title 5', 'This is the caption for post 5', NOW(), NULL),
-(2, 'cld-sample', 'Post Title 6', 'This is the caption for post 6', NOW(), NULL),
-(1, 'sample', 'Post Title 7', 'This is the caption for post 7', NOW(), NULL),
-(1, 'alin-gavriliuc-eRSqX5Vz1g0-unsplash_oeeeoe', 'Post Title 8', 'This is the caption for post 8', NOW(), NULL),
-(1, 'rebeca-g-sendroiu-8q3hMAfz0Jg-unsplash_tnjz86', 'Post Title 9', 'This is the caption for post 9', NOW(), NULL),
-(1, 'vicky-ToyX8yzU0SU-unsplash_rwvlea', 'Post Title 10', 'This is the caption for post 10', NOW(), NULL),
-(1, 'andrea-davis-gIA1bMAkIPM-unsplash_hmlquw', 'Post Title 11', 'This is the caption for post 11', NOW(), NULL),
-(1, 'carter-obasohan-QwmKJTO8hyE-unsplash_yhcdre', 'Post Title 12', 'This is the caption for post 12', NOW(), NULL);
+(1, 'cld-sample-2', 'Mountain Peak', 'Soaring heights and breathtaking views. The mountain peak offers a sense of peace and adventure.', NOW(), NULL),
+(2, 'anna-blake-jUTaSxn-NOw-unsplash_ogatwi', 'Cute Cat', 'Whiskers, the purrfect furball, posing adorably. A fluffy bundle of joy, brightening my day!', NOW(), NULL),
+(3, 'cld-sample-4', 'Saturday Breakfast', 'Saturday mornings call for fluffy waffles, fresh fruit, and a warm cup of coffee. Bliss!', NOW(), NULL),
+(1, 'fjbb85j8tj1s3dqhrl77', 'Cozy Desk', 'Creating a cozy workspace for productivity and comfort. Let the inspiration flow!', NOW(), NULL),
+(2, 'MooDeng_aqxolp', 'Cute Hippo', 'Look at this adorable hippo enjoying a lazy day at the zoo. So fluffy and full of charm!', NOW(), NULL),
+(2, 'cld-sample', 'Dog Photoshoot', 'Strike a pose! My furry friend\'s adorable photoshoot, capturing their playful spirit and charm.', NOW(), NULL),
+(1, 'sample', 'Flower and Bee', 'Nature\'s delicate dance: a bee\'s graceful encounter with vibrant flowers.', NOW(), NULL),
+(1, 'alin-gavriliuc-eRSqX5Vz1g0-unsplash_oeeeoe', 'Cocktail Night', 'Cheers to the weekend! Clinking glasses, sharing laughter, and creating memories.', NOW(), NULL),
+(1, 'rebeca-g-sendroiu-8q3hMAfz0Jg-unsplash_tnjz86', 'Apple Picking', 'Autumn bliss! Basking in the orchard, we picked the sweetest apples.', NOW(), NULL),
+(1, 'vicky-ToyX8yzU0SU-unsplash_rwvlea', 'Late Summer Salad', 'A refreshing salad to savor the last days of summer. Crisp veggies and a tangy dressing.', NOW(), 1),
+(1, 'andrea-davis-gIA1bMAkIPM-unsplash_hmlquw', 'Cozy Hotel', 'A home away from home.', NOW(), NULL),
+(1, 'carter-obasohan-QwmKJTO8hyE-unsplash_yhcdre', 'Hiking Summit', 'Reaching new heights! A breathtaking view as I conquer the mountain peak.', NOW(), NULL);
 
+INSERT INTO comments (content, post_id, user_id, created_at)
+VALUES
+('Great photo!', 1, 6, NOW()),
+('stunning', 1, 2, NOW());
 
 -- ADDING LIKES --
 INSERT INTO post_interactions (post_id, user_id, interacted, created_at) VALUES 
