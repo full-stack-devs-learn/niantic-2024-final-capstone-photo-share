@@ -47,8 +47,8 @@ export default function PhotoUploadButton({onPhotoUploaded}: {onPhotoUploaded: F
             }}
             ></input>
             <Button variant="secondary" type="submit">Upload</Button>
-            <p>{message}</p>
         </form>
+        <p className="my-4 text-center">{message}</p>
         </>
     )
 }
