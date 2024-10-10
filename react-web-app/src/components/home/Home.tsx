@@ -9,7 +9,7 @@ export default function Home()
 
     return (
         <>
-         <main className="container mt-4" id = "home-page-container">
+         <main className="container mt-5" id = "home-page-container">
             <PostCreationModal onNewPostCreated={(public_id: string) => setNewPost(public_id)}></PostCreationModal>
             <PhotoPostFeed onNewPostCreated={newPost}></PhotoPostFeed>
         </main>  

@@ -51,7 +51,7 @@ export default function PhotoPostFeed({onNewPostCreated}: {onNewPostCreated: any
 
         {pageNum !== 1 && <Button onClick={handlePrevPage}>Prev</Button>}
 
-        <Button onClick={handleNextPage}>Next</Button>
+        <Button className="mb-5" onClick={handleNextPage}>Next</Button>
         </>
     )
 }

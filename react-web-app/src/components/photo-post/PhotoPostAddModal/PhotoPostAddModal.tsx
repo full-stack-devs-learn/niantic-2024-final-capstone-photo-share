@@ -60,7 +60,7 @@ export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated:
 
     return (
         <>
-        {isAuthenticated && <button className="mt-4" id="add-post-button"onClick={handleShow}>
+        {isAuthenticated && <button id="add-post-button"onClick={handleShow}>
             <span className="material-symbols-outlined">add_circle</span>
             Create new photo post 
         </button>}
