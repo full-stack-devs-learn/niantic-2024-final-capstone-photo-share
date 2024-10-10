@@ -7,6 +7,10 @@ import { Album } from "../../../models/album";
 import photoPostService from "../../../services/photo-post-service";
 import AlbumCarouselImage from "../AlbumCarouselImage";
 import albumService from "../../../services/album-service";
+
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+
 import { Carousel, Card } from "react-bootstrap";
 
 export default function AlbumDetails()
@@ -17,6 +21,8 @@ export default function AlbumDetails()
     const [refreshPage, setRefreshPage] = useState<number>(0);
     const [posts, setPosts] = useState<PhotoPost[]>([]);
     const [albumData, setAlbumData] = useState<Album>({albumId: 0, userId: 0, title: "", description: "", createdAt: ""});
+
+    const { user } = useSelector((state: RootState) => state.authentication);
 
     useEffect(() => {
         photoPostService.getByAlbum(+albumId).then(data => {
@@ -50,7 +56,7 @@ export default function AlbumDetails()
 
                 <Card.Body className="details-card-body mt-2">
                     <p>{albumData.description}</p>
-                    <AlbumAddPhotosModal albumId={+albumId} onAlbumUpdated={albumUpdated}/>
+                    {user?.id == albumData.userId && <AlbumAddPhotosModal albumId={+albumId} onAlbumUpdated={albumUpdated}/>}
                 </Card.Body>
             </Card>
         </section>
