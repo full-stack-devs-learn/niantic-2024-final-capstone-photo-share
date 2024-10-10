@@ -28,7 +28,7 @@ export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated:
 
     const cld = new Cloudinary({ cloud: { cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME } });
 
-    const { user } = useSelector((state: RootState) => state.authentication);
+    const { user, isAuthenticated } = useSelector((state: RootState) => state.authentication);
 
     function showUploadedPhoto(public_id: string)
     {
@@ -60,10 +60,11 @@ export default function PostCreationModal({onNewPostCreated}: {onNewPostCreated:
 
     return (
         <>
-        <button className="mt-4" id="add-post-button"onClick={handleShow}>
+        {isAuthenticated && <button className="mt-4" id="add-post-button"onClick={handleShow}>
             <span className="material-symbols-outlined">add_circle</span>
-            Create new photo post
-        </button>
+            Create new photo post 
+        </button>}
+        
 
         <Modal id="add-post-modal" show={show} onHide={handleClose}>
             <Modal.Header closeButton>
