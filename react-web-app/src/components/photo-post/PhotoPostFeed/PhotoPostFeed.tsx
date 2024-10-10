@@ -15,7 +15,6 @@ export default function PhotoPostFeed({onNewPostCreated}: {onNewPostCreated: any
 {
     const { user, isAuthenticated } = useSelector((state: RootState) => state.authentication);
     const [posts, setPosts] = useState<PhotoPost[]>([]);
-    const [currentPosts, setCurrentPosts] = useState<PhotoPost[]>([]);
     const [pageNum, setPageNum] = useState<number>(1);
 
     useEffect(() => {
@@ -23,29 +22,22 @@ export default function PhotoPostFeed({onNewPostCreated}: {onNewPostCreated: any
         {
             postInteractionService.getUserInteractions(pageNum, user?.id).then(data => {
                 setPosts(data);
+            }).catch(() => {
+                setPageNum(pageNum - 1);
             })
         } 
         else 
         {
             photoPostService.getAllPosts(pageNum).then(data => {
                 setPosts(data);
-                if(posts == currentPosts)
-                {
-                    setPageNum(pageNum - 1);
-                }
+            }).catch(() => {
+                setPageNum(pageNum - 1);
             })
         }
     }, [onNewPostCreated, pageNum, isAuthenticated]);
     
     const handlePrevPage = () => setPageNum(pageNum - 1);
-    const handleNextPage = () => {
-        setPageNum(pageNum + 1);
-        
-        if(currentPosts !== posts)
-        {
-            setCurrentPosts(posts);
-        }
-    };
+    const handleNextPage = () => setPageNum(pageNum + 1);
 
     return (
         <>
