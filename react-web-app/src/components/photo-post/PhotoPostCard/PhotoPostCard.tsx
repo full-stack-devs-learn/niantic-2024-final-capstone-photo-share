@@ -122,7 +122,12 @@ export default function PhotoPostCard({userId, publicId, title, captions, reacti
                 </div>
                 </div>
             }
+            <Link to={`/comments/${postId}`} className="btn btn-link">
+                                View Comments
+                            </Link>
             </Card.Body>
+
+            
         </Card>
     )
 
