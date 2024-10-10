@@ -32,3 +32,8 @@
     display: flex;
     justify-content:center;
 }
+.form-control{
+    resize: none;
+    height: auto;
+    width: 100%;
+}
