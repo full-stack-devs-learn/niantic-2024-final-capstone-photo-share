@@ -118,10 +118,10 @@ DELIMITER ;
 INSERT INTO profiles(user_id, profile_img, bio)
 VALUES
 (1, "qipoecbc5evjszubti0l", "Hello, I'm user 1!"),
-(2, "profile_img2.jpg", "This is user 2's bio."),
-(3, "profile_img3.jpg", "User 3 here, nice to meet you!"),
-(4, "profile_img4.jpg", "Welcome to user 4's profile!"),
-(5, "profile_img5.jpg", "Hey, I'm user 5!"),
+(2, "llwyfxpjsend3cvmfdp8", "This is user 2's bio."),
+(3, "nxqe8esniintwphhulqx", "User 3 here, nice to meet you!"),
+(4, "hotpg7l7qn9pjlnuxewm", "Welcome to user 4's profile!"),
+(5, "zv8u5ndzemnfnmkddobw", "Hey, I'm user 5!"),
 (6, "Ash_3_rbbtbo", "Hey, I'm Ash Ketchum from Pallet Town");
 
 INSERT INTO albums (user_id, title, description, created_at)

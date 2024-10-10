@@ -8,10 +8,15 @@ import AlbumThumbnailCard from "../AlbumThumbnailCard/AlbumThumbnailCard";
 import AlbumAddModal from "../AlbumAddModal/AlbumAddModal";
 import { Link } from "react-router-dom";
 
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+
 export default function UserAlbumsContainer({profileId}: {profileId: number})
 {
     const [albums, setAlbums] = useState<Album[]>([]);
     const [refreshPage, setRefreshPage] = useState<number>(0);
+
+    const { user } = useSelector((state: RootState) => state.authentication);
 
     useEffect(() => {
         albumService.getByProfile(profileId).then(data => {
@@ -26,7 +31,7 @@ export default function UserAlbumsContainer({profileId}: {profileId: number})
 
     return (
         <>
-        <AlbumAddModal onAlbumAdded={albumAdded}/>
+        {user?.id == profileId && <AlbumAddModal onAlbumAdded={albumAdded}/>}
         <section id="album-container" className="mt-5">
             {
                 albums.map((album) => (
