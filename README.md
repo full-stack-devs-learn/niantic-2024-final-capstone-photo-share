@@ -49,6 +49,8 @@ On your own page, you can create an album and sort your photos into there.
 ## Database Design
   The database is designed to support a social media platform where users can create profiles, make posts, organize posts into albums, and interact through likes and comments. It includes tables for users, profiles, posts, albums, and associative tables like post_interactions for likes and comments for user feedback. This structure allows users to engage by posting content, organizing it into albums, and interacting with posts.
 
+  ![screenshot of database schema ](./readme-img/schema.png)
+
 ## API Architecture
   The API is built using Spring Boot and follows a RESTful design. It includes controllers for managing profiles, posts, albums, and comments, with REST mappings for each entity. The controllers interact with service layers and DAOs (repositories) to handle data manipulation and retrieval. This design allows for seamless integration between the back-end and the front-end, enabling users to view posts, interact with content, and track interactions like likes and comments.
 

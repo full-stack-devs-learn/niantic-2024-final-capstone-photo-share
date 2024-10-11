@@ -34,11 +34,11 @@ gollum		password
 
  are: password */
 INSERT INTO users (username, hashed_password, role)
-VALUES  ('user','$2a$10$NkufUPF3V8dEPSZeo1fzHe9ScBu.LOay9S3N32M84yuUM2OJYEJ/.','ROLE_USER'),
+VALUES  ('Gregor','$2a$10$NkufUPF3V8dEPSZeo1fzHe9ScBu.LOay9S3N32M84yuUM2OJYEJ/.','ROLE_USER'),
 ('john_doe','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_ADMIN'),
 ('gandalf','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_ADMIN'),
 ('frodo','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_USER'),
-('samwise','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_HOBBIT'),
+('Professor Oak','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_HOBBIT'),
 ('ash_ketchum','$2a$10$lfQi9jSfhZZhfS6/Kyzv3u3418IgnWXWDQDk7IbcwlCFPgxg9Iud2','ROLE_USER');
 
 CREATE TABLE profiles 
@@ -117,7 +117,7 @@ DELIMITER ;
 -- DATA --
 INSERT INTO profiles(user_id, profile_img, bio)
 VALUES
-(1, "qipoecbc5evjszubti0l", "Capturing the beauty of everyday moments!"),
+(1, "gregor_gengar_ol6rg2", "Teaching People"),
 (2, "llwyfxpjsend3cvmfdp8", "I'm a nature enthusiast, always seeking the beauty in the great outdoors. Join me as I hike, camp, and appreciate the world around us."),
 (3, "nxqe8esniintwphhulqx", "Capturing life's little moments, one click at a time! 📸 Follow my journey on PhotoShare, where I share my daily adventures and the beauty around me."),
 (4, "hotpg7l7qn9pjlnuxewm", "Foodie and amateur chef here! I love experimenting in the kitchen and sharing my culinary creations."),
@@ -141,7 +141,7 @@ VALUES
 (1, 'rebeca-g-sendroiu-8q3hMAfz0Jg-unsplash_tnjz86', 'Apple Picking', 'Autumn bliss! Basking in the orchard, we picked the sweetest apples.', NOW(), NULL),
 (1, 'vicky-ToyX8yzU0SU-unsplash_rwvlea', 'Late Summer Salad', 'A refreshing salad to savor the last days of summer. Crisp veggies and a tangy dressing.', NOW(), 1),
 (1, 'andrea-davis-gIA1bMAkIPM-unsplash_hmlquw', 'Cozy Hotel', 'A home away from home.', NOW(), NULL),
-(1, 'carter-obasohan-QwmKJTO8hyE-unsplash_yhcdre', 'Hiking Summit', 'Reaching new heights! A breathtaking view as I conquer the mountain peak.', NOW(), NULL);
+(1, "wheelOfnames_uzsqwv", 'Torturing Students', 'Giving people anxiety', NOW(), NULL);
 
 INSERT INTO comments (content, post_id, user_id, created_at)
 VALUES
