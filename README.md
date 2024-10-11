@@ -11,14 +11,37 @@ A one-week group project! PhotoShare is a web application dedicated to documenti
 7. [Challenges](#challenges)
 
 ## Project Design
+We managed our project using Trello, where we broke down bigger goals into smaller tasks.
+
 ## Front End
+
+### Home Page
+Users start on the home page, which displays the feed of all posts. If they're logged in, they can upload a new post to the feed.
+
 ![screenshot of home page](./readme-img/home.png)
-![screenshot of profile page](./readme-img/profile.png)
-![screenshot of albums page](./readme-img/album-edit.png)
+
+### Creating a post
+A logged-in user can upload a photo and create a post.
+
 ![screenshot of creating a post](./readme-img/create-post.png)
 
+### Profile Page
+Each user has a profile that contains all their posts, and any albums they've created.
+
+![screenshot of profile page](./readme-img/profile.png)
+
+### Creating an album
+On your own page, you can create an album and sort your photos into there.
+
+![screenshot of albums page](./readme-img/album-edit.png)
+
 ## Development Stack
+**Front-end:** React, TypeScript, Bootstrap, Vite, Axios, Cloudinary API
+
+**Back-end:** Java, SpringBoot, MySQL
+
 ## Database Design
+
 ## API Architecture
 
 ## Favorite Code
