@@ -11,7 +11,13 @@ A one-week group project! PhotoShare is a web application dedicated to documenti
 7. [Challenges](#challenges)
 
 ## Project Design
-We managed our project using Trello, where we broke down bigger goals into smaller tasks.
+We kicked off the project with a collaborative brainstorming session. Our goal was to develop a user-friendly interface that will support our core feature of being able to tell a story through photos. We managed our project using Trello, where we broke down bigger goals into smaller tasks.
+
+![trello board](./readme-img/trello.png)
+
+We designed wireframes using Figma so we could envision the flow of our application and where certain features would be implemented.
+
+![wireframes](./readme-img/wireframes.png)
 
 ## Front End
 
