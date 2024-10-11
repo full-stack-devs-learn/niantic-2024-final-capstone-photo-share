@@ -103,7 +103,17 @@ END //
 
 DELIMITER ;
 ```
+
 ### Tabatha
+This block of code ensures that new comments are displayed without the need to refresh the page:
+
+axios.post("http://localhost:8080/api/comments", commentData).then(response => {
+      setComments([...comments, response.data]);
+      setNewComment("");
+    }).catch(error => {
+      console.error("Error posting comment:", error);
+    });
+  };
 
 ## Challenges
 ### Eri
@@ -114,10 +124,17 @@ DELIMITER ;
 **Solution:** I update an array list each time the user selects or deselects a photo, and then perform a PUT request on each photo to sort them into an album. 
 
 ### Hannah
+
 ### Jordan
 **Problem:** The biggest challenge was accurately tracking reactions for each post based on user interactions without allowing multiple likes from the same user.
 
 **Approach:** Initially, I used a simple increment and decrement method to update the reactions count, which did not account for unique user interactions.
 
 **Solution:** I implemented a scheduled MySQL event that recalculates the reactions by counting unique interactions from the post_interactions table, ensuring accurate updates every 10 seconds.
+
 ### Tabatha
+**Problem:** When users post a new comment, it doesn't immediately appear in the comments section unless the page is refreshed.
+
+**Approach:** I leveraged React’s state management to handle the comments dynamically. 
+
+**Solution:** The comment input is managed using the newComment state variable. When the user types, the state is updated accordingly. When the user submits the comment, an HTTP POST request is sent to the backend to save the comment. The backend responds with the newly created comment. Upon receiving the response from the backend, we use setComments([...comments, response.data]) to add the new comment to the existing comments array. This triggers React to re-render the component with the updated list of comments. The new comment is now displayed immediately without needing a page refresh, providing a seamless user experience.
